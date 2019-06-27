@@ -18,7 +18,7 @@ hook.Add("Think", "gms_ProcessThinkHooks", function()
 		local basethink = v:BaseThink()
 
 		if (think or basethink or IsStopped) then
-			if (v.Owner and v.Owner != NULL and v.Owner:IsValid()) then 
+			if (v.Owner and v.Owner ~= NULL and v.Owner:IsValid()) then 
 				v.Owner:Freeze(false)
 				v.Owner:StopProcessBar()
 				v.Owner.InProcess = false
@@ -90,7 +90,7 @@ function PlayerMeta:CancelProcess()
 	local v = self.ProcessTable
 	if (!v.Cancel) then return end
 
-	if (v.Owner and v.Owner != NULL and IsValid(v.Owner)) then 
+	if (v.Owner and v.Owner ~= NULL and IsValid(v.Owner)) then 
 		v.Owner:Freeze(false)
 		v.Owner:StopProcessBar()
 		v.Owner.InProcess = false
@@ -183,7 +183,7 @@ function PROCESS:OnStop()
 	if (self.SideGain) then
 		local numto = 1
 		local numstart = 0
-		if (IsValid(self.Owner:GetActiveWeapon()) && self.Owner:GetActiveWeapon():GetClass() == "gms_woodenspoon") then 
+		if (IsValid(self.Owner:GetActiveWeapon()) and self.Owner:GetActiveWeapon():GetClass() == "gms_woodenspoon") then 
 			numto = numto + 2 
 			numstart = numstart + 1
 		end
@@ -332,7 +332,7 @@ function PROCESS:OnStop()
 	local ent = self.Data.Entity
 	local ply = self.Owner
 
-	if (ent.NormalProp == true && SPropProtection.PlayerCanTouch(ply, ent)) then
+	if (ent.NormalProp == true and SPropProtection.PlayerCanTouch(ply, ent)) then
 		local vol = ent:GetVolume()
 
 		local res = GMS.MaterialResources[self.Data.MatType]
@@ -340,7 +340,7 @@ function PROCESS:OnStop()
 		local cost = math.Round(0.6 * math.ceil(vol * 0.5))
 		ply:IncResource(res, cost)
 		ply:SendMessage("Gained " .. string.Replace(res, "_", " ") .. " (" .. cost .. "x) from salvaging.", 3, Color(255, 255, 255, 255))
-	elseif (table.HasValue(GMS.StructureEntities, ent:GetClass()) && SPropProtection.PlayerCanTouch(ply, ent)) then
+	elseif (table.HasValue(GMS.StructureEntities, ent:GetClass()) and SPropProtection.PlayerCanTouch(ply, ent)) then
 		local structures = GMS.Combinations["Structures"]
 		local costs = {}
 		for name, t in pairs(structures) do
@@ -383,7 +383,7 @@ end
 
 function PROCESS:PlaySound()
 	if (CurTime() - self.StartTime > self.Time) then return end
-	if (!self.Owner.InProcess || self.StartTime != self.Owner.ProcessTable.StartTime) then return end
+	if (!self.Owner.InProcess or self.StartTime ~= self.Owner.ProcessTable.StartTime) then return end
 
 	if (self.Owner:Alive()) then
 		self.Owner:GetActiveWeapon():DoEffects(self.Owner:GetEyeTrace())
@@ -463,7 +463,7 @@ function PROCESS:OnStart()
 
 	local ent = self.Data.Entity
 
-	if (IsValid(ent) && !ent.Uses) then
+	if (IsValid(ent) and !ent.Uses) then
 		ent.Uses = math.random(1, 3)
 	end
 end
@@ -471,7 +471,7 @@ end
 function PROCESS:OnStop()
 	local num = math.random(1, 100)
 	local add = 0
-	if (IsValid(self.Owner:GetActiveWeapon()) && self.Owner:GetActiveWeapon():GetClass() == "gms_sickle") then add = add + 30 end
+	if (IsValid(self.Owner:GetActiveWeapon()) and self.Owner:GetActiveWeapon():GetClass() == "gms_sickle") then add = add + 30 end
 
 	if (num > 50 - self.Owner:GetSkill("Harvesting") - add) then
 		local amount = math.random(1, 2)
@@ -482,7 +482,7 @@ function PROCESS:OnStop()
 		local ent = self.Data.Entity
 		local owner = ent:GetNWEntity("plantowner")
 
-		if (IsValid(ent) && ent.Uses) then
+		if (IsValid(ent) and ent.Uses) then
 			ent.Uses = ent.Uses - 1
 			if (ent.Uses <= 0) then
 				if (IsValid(owner)) then owner:SetNWInt("plants", owner:GetNWInt("plants") - 1) end
@@ -505,7 +505,7 @@ function PROCESS:OnStart()
 	self.Owner:MakeProcessBar("Harvesting Bush", self.Time, self.Cancel)
 	local ent = self.Data.Entity
 
-	if (IsValid(ent) && !ent.Uses) then
+	if (IsValid(ent) and !ent.Uses) then
 		ent.Uses = math.random(1, 3)
 	end
 end
@@ -514,7 +514,7 @@ function PROCESS:OnStop()
 	local num = math.random(1, 100)
 
 	local add = 0
-	if (IsValid(self.Owner:GetActiveWeapon()) && self.Owner:GetActiveWeapon():GetClass() == "gms_sickle") then add = add + 25 end
+	if (IsValid(self.Owner:GetActiveWeapon()) and self.Owner:GetActiveWeapon():GetClass() == "gms_sickle") then add = add + 25 end
 	if (num > 50 - self.Owner:GetSkill("Harvesting") - add) then
 		local amount = math.random(1, 2)
 		self.Owner:IncResource("Berries", amount)
@@ -524,7 +524,7 @@ function PROCESS:OnStop()
 		local ent = self.Data.Entity
 		local owner = ent:GetNWEntity("plantowner")
 
-		if (IsValid(ent) && ent.Uses) then
+		if (IsValid(ent) and ent.Uses) then
 			ent.Uses = ent.Uses - 1
 			if (ent.Uses <= 0) then
 				if (IsValid(owner)) then owner:SetNWInt("plants", owner:GetNWInt("plants") - 1) end
@@ -580,7 +580,7 @@ end
 
 function PROCESS:PlaySound()
 	if (CurTime() - self.StartTime > self.Time) then return end
-	if (!self.Owner.InProcess || self.StartTime != self.Owner.ProcessTable.StartTime) then return end
+	if (!self.Owner.InProcess or self.StartTime ~= self.Owner.ProcessTable.StartTime) then return end
 
 	if (self.Owner:Alive()) then
 		self.Owner:GetActiveWeapon():DoEffects(self.Owner:GetEyeTrace())
@@ -605,7 +605,7 @@ function PROCESS:OnStop()
 		self.Owner:SendMessage("Failed.", 3, Color(200, 0, 0, 255))
 	end
 
-	if (self.Data.Entity != NULL) then
+	if (self.Data.Entity ~= NULL) then
 		if (self.Data.Entity.Uses <= 0) then
 			self.Data.Entity:EmitSound("stranded/tree_fall.wav")
 			self.Data.Entity:Fadeout()
@@ -631,7 +631,7 @@ end
 
 function PROCESS:PlaySound()
 	if (CurTime() - self.StartTime > self.Time) then return end
-	if (!self.Owner.InProcess || self.StartTime != self.Owner.ProcessTable.StartTime) then return end
+	if (!self.Owner.InProcess or self.StartTime ~= self.Owner.ProcessTable.StartTime) then return end
 
 	if (self.Owner:Alive()) then
 		self.Owner:GetActiveWeapon():DoEffects(self.Owner:GetEyeTrace())
@@ -646,11 +646,11 @@ function PROCESS:OnStop()
 	local num2 = 1
 
 	if (num < self.Data.Chance + self.Owner:GetSkill("Mining")) then
-		if (IsValid(self.Owner:GetActiveWeapon()) && self.Owner:GetActiveWeapon():GetClass() == "gms_stonepickaxe") then 
+		if (IsValid(self.Owner:GetActiveWeapon()) and self.Owner:GetActiveWeapon():GetClass() == "gms_stonepickaxe") then 
 			num2 = math.random(1, 2)
-		elseif (IsValid(self.Owner:GetActiveWeapon()) && self.Owner:GetActiveWeapon():GetClass() == "gms_copperpickaxe") then 
+		elseif (IsValid(self.Owner:GetActiveWeapon()) and self.Owner:GetActiveWeapon():GetClass() == "gms_copperpickaxe") then 
 			num2 = math.random(1, 3)
-		elseif (IsValid(self.Owner:GetActiveWeapon()) && self.Owner:GetActiveWeapon():GetClass() == "gms_ironpickaxe") then 
+		elseif (IsValid(self.Owner:GetActiveWeapon()) and self.Owner:GetActiveWeapon():GetClass() == "gms_ironpickaxe") then 
 			num2 = math.random(1, 4)
 		end
 
@@ -677,7 +677,7 @@ function PROCESS:OnStop()
 		self.Owner:SendMessage("Failed.", 3, Color(200, 0, 0, 255))
 	end
 
-	if (GetConVarNumber("gms_FadeRocks") == 1 and self.Data.Entity != NULL) then
+	if (GetConVarNumber("gms_FadeRocks") == 1 and self.Data.Entity ~= NULL) then
 		if (self.Data.Entity.Uses <= 0) then
 			self.Data.Entity:Fadeout()
 		end
@@ -703,7 +703,7 @@ function PROCESS:OnStop()
 	local num = math.random(1, 100)
 	local add = 0
 
-	if (IsValid(self.Owner:GetActiveWeapon()) && self.Owner:GetActiveWeapon():GetClass() == "gms_sickle") then add = add + 30 end
+	if (IsValid(self.Owner:GetActiveWeapon()) and self.Owner:GetActiveWeapon():GetClass() == "gms_sickle") then add = add + 30 end
 
 	if (num > 50 - self.Owner:GetSkill("Harvesting") - add) then
 		self.Owner:IncResource("Sprouts", 1)
@@ -897,10 +897,10 @@ function PROCESS:OnStop()
 		if (num < (self.Data.Chance + self.Owner:GetSkill("Fishing")) / 1.5) then
 			self.Owner:IncResource("Bass", 1)
 			self.Owner:SendMessage("Bass (1x)", 3, Color(10, 200, 10, 255))
-		elseif (num >= (self.Data.Chance + self.Owner:GetSkill("Fishing")) / 1.5 && num < (self.Data.Chance + self.Owner:GetSkill("Fishing")) / 1.2) then
+		elseif (num >= (self.Data.Chance + self.Owner:GetSkill("Fishing")) / 1.5 and num < (self.Data.Chance + self.Owner:GetSkill("Fishing")) / 1.2) then
 			self.Owner:IncResource("Trout", 1)
 			self.Owner:SendMessage("Trout (1x)", 3, Color(10, 200, 10, 255))
-		elseif (num >= (self.Data.Chance + self.Owner:GetSkill("Fishing")) / 1.2 && num < self.Data.Chance + self.Owner:GetSkill("Fishing")) then
+		elseif (num >= (self.Data.Chance + self.Owner:GetSkill("Fishing")) / 1.2 and num < self.Data.Chance + self.Owner:GetSkill("Fishing")) then
 			self.Owner:IncResource("Salmon", 1)
 			self.Owner:SendMessage("Salmon (1x)", 3, Color(10, 200, 10, 255))
 		end
@@ -939,13 +939,13 @@ function PROCESS:OnStop()
 		if (num < (self.Data.Chance + self.Owner:GetSkill("Fishing")) / 2) then
 			self.Owner:IncResource("Bass", 1)
 			self.Owner:SendMessage("Bass (1x)", 3, Color(10, 200, 10, 255))
-		elseif (num >= (self.Data.Chance + self.Owner:GetSkill("Fishing")) / 2 && num < (self.Data.Chance + self.Owner:GetSkill("Fishing")) / 1.5) then
+		elseif (num >= (self.Data.Chance + self.Owner:GetSkill("Fishing")) / 2 and num < (self.Data.Chance + self.Owner:GetSkill("Fishing")) / 1.5) then
 			self.Owner:IncResource("Trout", 1)
 			self.Owner:SendMessage("Trout (1x)", 3, Color(10, 200, 10, 255))
-		elseif (num >= (self.Data.Chance + self.Owner:GetSkill("Fishing")) / 1.5 && num < (self.Data.Chance + self.Owner:GetSkill("Fishing")) / 1.2) then
+		elseif (num >= (self.Data.Chance + self.Owner:GetSkill("Fishing")) / 1.5 and num < (self.Data.Chance + self.Owner:GetSkill("Fishing")) / 1.2) then
 			self.Owner:IncResource("Salmon", 1)
 			self.Owner:SendMessage("Salmon (1x)", 3, Color(10, 200, 10, 255))
-		elseif (num >= (self.Data.Chance + self.Owner:GetSkill("Fishing")) / 1.2 && num < self.Data.Chance + self.Owner:GetSkill("Fishing")) then
+		elseif (num >= (self.Data.Chance + self.Owner:GetSkill("Fishing")) / 1.2 and num < self.Data.Chance + self.Owner:GetSkill("Fishing")) then
 			self.Owner:IncResource("Shark", 1)
 			self.Owner:SendMessage("Shark (1x)", 3, Color(10, 200, 10, 255))
 		end
@@ -990,7 +990,7 @@ end
 
 function PROCESS:PlaySound()
 	if (CurTime() - self.StartTime > self.Time) then return end
-	if (!self.Owner.InProcess || self.StartTime != self.Owner.ProcessTable.StartTime) then return end
+	if (!self.Owner.InProcess or self.StartTime ~= self.Owner.ProcessTable.StartTime) then return end
 
 	if (self.Owner:Alive()) then
 		self.Owner:EmitSound(Sound("npc/barnacle/barnacle_gulp" .. math.random(1, 2) .. ".wav"))
@@ -1018,7 +1018,7 @@ GMS.RegisterProcess("DrinkBottle", PROCESS)
 local PROCESS = {}
 
 function PROCESS:OnStart()
-	if (self.Owner:Health() >= 200 or (self.Owner:Health() >= 150 and self.Owner:HasUnlock("Master_Survivalist") != true) or (self.Owner:Health() >= 100 and self.Owner:HasUnlock("Adept_Survivalist") != true)) then 
+	if (self.Owner:Health() >= 200 or (self.Owner:Health() >= 150 and self.Owner:HasUnlock("Master_Survivalist") ~= true) or (self.Owner:Health() >= 100 and self.Owner:HasUnlock("Adept_Survivalist") ~= true)) then 
 		self.Owner:SendMessage("You're feeling good, why would you heal yourself.", 3, Color(200, 0, 0, 255))
 	else
 		self.Owner:MakeProcessBar("Taking Medicine", self.Time, self.Cancel)
@@ -1027,7 +1027,7 @@ function PROCESS:OnStart()
 end
 
 function PROCESS:OnStop()
-	if (self.Owner:Health() >= 200 or (self.Owner:Health() >= 150 and self.Owner:HasUnlock("Master_Survivalist") != true) or (self.Owner:Health() >= 100 and self.Owner:HasUnlock("Adept_Survivalist") != true)) then return end 
+	if (self.Owner:Health() >= 200 or (self.Owner:Health() >= 150 and self.Owner:HasUnlock("Master_Survivalist") ~= true) or (self.Owner:Health() >= 100 and self.Owner:HasUnlock("Adept_Survivalist") ~= true)) then return end 
 	self.Owner:DecResource("Medicine", 1)
 	self.Owner:SendMessage("You're feeling a bit better now.", 3, Color(10, 200, 10, 255))
 	self.Owner:Heal(10)

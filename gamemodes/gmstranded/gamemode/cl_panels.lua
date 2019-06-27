@@ -470,9 +470,9 @@ function PANEL:DoClick()
 		filter = LocalPlayer()
 	})
 
-	if (self.GroundActions && self.GroundActions[self.Resource] && tr.HitWorld) then
+	if (self.GroundActions and self.GroundActions[self.Resource] and tr.HitWorld) then
 		RunConsoleCommand(self.GroundActions[self.Resource].cmd)
-	elseif (self.NormalActions && self.NormalActions[self.Resource]) then
+	elseif (self.NormalActions and self.NormalActions[self.Resource]) then
 		RunConsoleCommand(self.NormalActions[self.Resource].cmd)
 	end
 end
@@ -964,13 +964,13 @@ function PANEL:Paint(w, h)
 end
 
 function PANEL:SetInfo(name, tbl)
-	if (tbl.Texture && Material(tbl.Texture)) then self.TexID = Material(tbl.Texture) end
+	if (tbl.Texture and Material(tbl.Texture)) then self.TexID = Material(tbl.Texture) end
 	self.Combi = name
 	self.CombiTable = tbl
 end
 
 function PANEL:OnMousePressed(mc)
-	if (mc != 107) then return end
+	if (mc ~= 107) then return end
 	surface.PlaySound(Sound("ui/buttonclickrelease.wav"))
 	self:GetParent():GetParent():GetParent():SetActive(self.Combi, self.CombiTable)
 	self:GetParent():GetParent():GetParent().button:SetDisabled(false)
@@ -1017,7 +1017,7 @@ function PANEL:PerformLayout()
 	self.TakeAll:SetSize(64, self:GetTall() - 4)
 	self.TakeAll:SetPos(self:GetWide() - 66, 2)
 
-	if (self.TakeX and self.TakeX != NULL) then
+	if (self.TakeX and self.TakeX ~= NULL) then
 		self.TakeX:SetSize(64, self:GetTall() - 4)
 		self.TakeX:SetPos(self:GetWide() - 132, 2)
 	end
@@ -1039,7 +1039,7 @@ end
 function PANEL:Paint()
 	if (self:GetDisabled()) then
 		draw.RoundedBox(0, 0, 0, self:GetWide(), self:GetTall(), Color(50, 50, 50, 255))
-	elseif (self.Depressed /*|| self:GetSelected()*/) then
+	elseif (self.Depressed /*or self:GetSelected()*/) then
 		draw.RoundedBox(0, 0, 0, self:GetWide(), self:GetTall(), Color(50, 50, 176, 255))
 	elseif (self.Hovered) then
 		draw.RoundedBox(0, 0, 0, self:GetWide(), self:GetTall(), Color(100, 100, 255, 255))
@@ -1124,7 +1124,7 @@ end
 function PANEL:Paint()
 	if (self:GetDisabled()) then
 		draw.RoundedBox(0, 0, 0, self:GetWide(), self:GetTall(), Color(50, 50, 50, 255))
-	elseif (self.Depressed /*|| self:GetSelected()*/) then
+	elseif (self.Depressed /*or self:GetSelected()*/) then
 		draw.RoundedBox(0, 0, 0, self:GetWide(), self:GetTall(), Color(50, 50, 176, 255))
 	elseif (self.Hovered) then
 		draw.RoundedBox(0, 0, 0, self:GetWide(), self:GetTall(), Color(100, 100, 255, 255))

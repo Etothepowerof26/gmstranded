@@ -130,7 +130,7 @@ concommand.Add("gms_openrespackmenu", function(ply, cmd, args)
 		end
 
 		// Right side
-		if (self.ResourcePack:GetClass() == "gms_fridge" || !IsValid(self.Inventory)) then return end
+		if (self.ResourcePack:GetClass() == "gms_fridge" or !IsValid(self.Inventory)) then return end
 		timer.Simple(0, function()
 			if (!IsValid(self.Inventory)) then return end
 			for id, item in pairs(self.Inventory:GetItems()) do item:Remove() end
@@ -166,7 +166,7 @@ concommand.Add("gms_openrespackmenu", function(ply, cmd, args)
 	frame.Resources = panelList
 	frame.ResourcePack = resPack
 
-	if (resPack:GetClass() != "gms_fridge") then
+	if (resPack:GetClass() ~= "gms_fridge") then
 		local panelListInv = vgui.Create("DPanelList", frame)
 		panelListInv:SetPos(frame:GetWide() - 10 - ScrW() / 4 + 5, 30)
 		panelListInv:SetSize(ScrW() / 4, frame:GetTall() - 35)

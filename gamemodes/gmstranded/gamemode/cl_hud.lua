@@ -131,7 +131,7 @@ end
 
 function GM:DrawWristWatch()
 
-	if (GetConVarNumber("gms_daynight") <= 0 || !Resources["Wrist_Watch"] || Resources["Wrist_Watch"] < 1) then return end
+	if (GetConVarNumber("gms_daynight") <= 0 or !Resources["Wrist_Watch"] or Resources["Wrist_Watch"] < 1) then return end
 
 	local w = ScrW() / 12
 	local h = ScrH() / 25
@@ -246,7 +246,7 @@ function GM:HUDDrawTargetID()
 
 	local MouseX, MouseY = gui.MousePos()
 
-	if (MouseX == 0 && MouseY == 0) then
+	if (MouseX == 0 and MouseY == 0) then
 		MouseX = ScrW() / 2
 		MouseY = ScrH() / 2
 	end
@@ -315,7 +315,7 @@ function GM:DrawResourceDropsHUD()
 				filter = ply
 			}
 
-			if ((cent - pos):Length() <= 200 && util.TraceLine(tr).Entity == v) then
+			if ((cent - pos):Length() <= 200 and util.TraceLine(tr).Entity == v) then
 				str = (v.Res or "Loading") .. ": " .. tostring(v.Amount or 0)
 				draw_loc = cent:ToScreen()
 				surface.SetFont("ChatFont")
@@ -405,7 +405,7 @@ function GM:HUDPaint()
 end
 
 function GM:HUDShouldDraw(name)
-	if (name != "CHudHealth" && name != "CHudBattery") then
+	if (name ~= "CHudHealth" and name ~= "CHudBattery") then
 		return true
 	end
 end

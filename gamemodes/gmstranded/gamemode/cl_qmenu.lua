@@ -120,7 +120,7 @@ function PANEL:Init()
 		draw.RoundedBox(4, 0, 0, self:GetWide(), self:GetTall(), Color(255, 255, 255, 150))
 	end
   
-	if (ToolsLoad == false || ToolsLoad == nil || ToolsLoad == NULL || ToolsLoad == "") then
+	if (ToolsLoad == false or ToolsLoad == nil or ToolsLoad == NULL or ToolsLoad == "") then
 		AllTools = spawnmenu.GetTools()
 		local ToolsLoad = true
 	end
@@ -157,7 +157,7 @@ function PANEL:AddCategory(Name, Label, ToolItems)
 	local NumTools = 0
 
 	for k, v in pairs(ToolItems) do
-		if (table.HasValue(GMS.ProhibitedStools, v.ItemName) && !LocalPlayer():IsAdmin()) then continue end
+		if (table.HasValue(GMS.ProhibitedStools, v.ItemName) and !LocalPlayer():IsAdmin()) then continue end
 		NumTools = NumTools + 1
 
 		local Item = vgui.Create("ToolMenuButton", self) 
@@ -379,7 +379,7 @@ function PANEL:Init()
 		local item = vgui.Create(t.elem)
 		item:SetText(t.text)
 
-		if (t.elem != "DLabel") then
+		if (t.elem ~= "DLabel") then
 			item:SetConVar(t.cmd)
 		end
 
@@ -410,7 +410,7 @@ function PANEL:Init()
 
 	/* Client */
 	for i, p in pairs(player.GetAll()) do
-		if (p != LocalPlayer()) then
+		if (p ~= LocalPlayer()) then
 			local item = vgui.Create("DCheckBoxLabel")
 
 			local BCommand = "spp_buddy_" .. p:GetNWString("SPPSteamID")
@@ -473,7 +473,7 @@ function PANEL:Think()
 		
 		/* Client */
 		for i, p in pairs(player.GetAll()) do
-			if (p != LocalPlayer()) then
+			if (p ~= LocalPlayer()) then
 				local item = vgui.Create("DCheckBoxLabel")
 
 				local BCommand = "spp_buddy_" .. p:GetNWString("SPPSteamID")
@@ -596,7 +596,7 @@ function PANEL:Init()
 			item.TextArea:SetTextColor(Color(200, 200, 200))
 		end
 
-		if (t.elem != "DLabel") then item:SetConVar(t.cmd) end
+		if (t.elem ~= "DLabel") then item:SetConVar(t.cmd) end
 
 		self.AdminSettings:AddItem(item)
 	end
@@ -834,7 +834,7 @@ end
 
 function PANEL:EndKeyFocus(pPanel)
 
-	if (self.m_pKeyFocus != pPanel) then return end
+	if (self.m_pKeyFocus ~= pPanel) then return end
 	self:SetKeyboardInputEnabled(false)
 
 	g_ContextMenu:EndKeyFocus(pPanel)
@@ -932,8 +932,8 @@ end
 
 hook.Add("OnTextEntryGetFocus", "GMSSpawnMenuKeyboardFocusOn", function(pnl)
 
-	if (!IsValid(gSpawnMenu) || !IsValid(g_ContextMenu)) then return end
-	if (IsValid(pnl) && pnl.HasParent && !pnl:HasParent(gSpawnMenu) && !pnl:HasParent(g_ContextMenu)) then return end
+	if (!IsValid(gSpawnMenu) or !IsValid(g_ContextMenu)) then return end
+	if (IsValid(pnl) and pnl.HasParent and !pnl:HasParent(gSpawnMenu) and !pnl:HasParent(g_ContextMenu)) then return end
 
 	gSpawnMenu:StartKeyFocus(pnl)
 
@@ -951,8 +951,8 @@ end)
 
 hook.Add("OnTextEntryLoseFocus", "GMSSpawnMenuKeyboardFocusOff", function(pnl)
 
-	if (!IsValid(gSpawnMenu) || !IsValid(g_ContextMenu)) then return end
-	if (IsValid(pnl) && pnl.HasParent && !pnl:HasParent(gSpawnMenu) && !pnl:HasParent(g_ContextMenu)) then return end
+	if (!IsValid(gSpawnMenu) or !IsValid(g_ContextMenu)) then return end
+	if (IsValid(pnl) and pnl.HasParent and !pnl:HasParent(gSpawnMenu) and !pnl:HasParent(g_ContextMenu)) then return end
 
 	gSpawnMenu:EndKeyFocus(pnl)
 

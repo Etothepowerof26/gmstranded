@@ -4,9 +4,9 @@ function GM:PlayerSay(ply, text, teamonly)
 	if (args == nil) then args = {} end
 
 	if (teamonly) then
-		if (GMS.RunChatCmd(ply, args) != "") then
+		if (GMS.RunChatCmd(ply, args) ~= "") then
 			for k, v in pairs(player.GetAll()) do
-				if (IsValid(v) && v:IsPlayer() && v:Team() == ply:Team()) then
+				if (IsValid(v) and v:IsPlayer() and v:Team() == ply:Team()) then
 					v:PrintMessage(3, "[TRIBE] " .. ply:Nick() .. ": " .. text)
 				end
 			end
@@ -23,17 +23,17 @@ function GMS.RegisterChatCmd(tbl)
 end
 
 function GMS.RunChatCmd(ply, arg)
-	if (#arg > 0 && (string.Left(arg[1], 1) == "/" or string.Left(arg[1], 1) == "!")) then
+	if (#arg > 0 and (string.Left(arg[1], 1) == "/" or string.Left(arg[1], 1) == "!")) then
 		local cmd = string.sub(arg[1], 2, string.len(arg[1]))
 		table.remove(arg, 1)
 
-		if (ply:GetNWBool("AFK") && cmd != "afk") then
+		if (ply:GetNWBool("AFK") and cmd ~= "afk") then
 			ply:SendMessage("You can't do this while afk.", 3, Color(200, 0, 0, 255))
-		elseif (ply:GetNWBool("Sleeping") && cmd != "wakeup") then
+		elseif (ply:GetNWBool("Sleeping") and cmd ~= "wakeup") then
 			ply:SendMessage("You can't do this while sleeping.", 3, Color(200, 0, 0, 255))
 		end
 
-		if (GMS.ChatCommands[cmd] != nil) then
+		if (GMS.ChatCommands[cmd] ~= nil) then
 			GMS.ChatCommands[cmd]:Run(ply, arg)
 			return ""
 		end
@@ -50,10 +50,10 @@ CHATCMD.Desc = "Prints all possible commands"
 function CHATCMD:Run(ply)
 	ply:PrintMessage(HUD_PRINTCONSOLE, "\n\n\nGarry's Mod Stranded chat commands:\n\n")
 	for _, v in pairs(GMS.ChatCommands) do
-		if (v.Command != nil) then
+		if (v.Command ~= nil) then
 			local desc = v.Desc or "No description given."
 			local syntax = v.Syntax or ""
-			if (syntax != "") then syntax = syntax .. " " end
+			if (syntax ~= "") then syntax = syntax .. " " end
 			ply:PrintMessage(HUD_PRINTCONSOLE, v.Command .. " " .. syntax .. "- " .. v.Desc)
 		end
 	end
@@ -328,7 +328,7 @@ CHATCMD.Desc = "Reset your / someone's needs. Admin Only."
 
 function CHATCMD:Run(ply, args)
 	if (!ply:IsAdmin()) then return end
-	if (args && #args > 0) then
+	if (args and #args > 0) then
 		pl = player.FindByName(args[1])
 		if (!pl) then ply:SendMessage("Player not found!", 3, Color(200, 10, 10, 255)) return end
 		pl.Hunger = 1000
@@ -353,7 +353,7 @@ CHATCMD.Command = "finish"
 CHATCMD.Desc = "Finish the structure you are looking at."
 
 function CHATCMD:Run(ply, args)
-	if (!ply:IsAdmin() || ply:GetEyeTrace().Entity:GetClass() != "gms_buildsite") then return end
+	if (!ply:IsAdmin() or ply:GetEyeTrace().Entity:GetClass() ~= "gms_buildsite") then return end
 	ply:GetEyeTrace().Entity:Finish()
 end
 
@@ -368,7 +368,7 @@ CHATCMD.Desc = "Give resources to yourself / someone"
 CHATCMD.Syntax = "[player] <Resource> <Amount>"
 
 function CHATCMD:Run(ply, arg)
-	if (!ply:IsAdmin() || !arg) then return end
+	if (!ply:IsAdmin() or !arg) then return end
 	if (#arg > 2) then
 		local pl = player.FindByName(arg[1])
 		if (!pl) then ply:SendMessage("Player not found!", 3, Color(200, 10, 10, 255)) return end
@@ -420,7 +420,7 @@ function CHATCMD:Run(ply, args)
 	local him = player.FindByName(args[1])
 	if (!him) then ply:SendMessage("Player not found!", 3, Color(200, 10, 10, 255)) return end
 	if (him == ply) then ply:SendMessage("Why invite yourself?", 3, Color(200, 64, 10, 255)) return end
-	if (him.LastInvite && him.LastInvite > CurTime()) then ply:SendMessage("Too much invitations to " .. him:Name() .. "! Wait " .. (CurTime() - him.LastInvite)  .. " seconds.", 3, Color(200, 10, 10, 255)) return end
+	if (him.LastInvite and him.LastInvite > CurTime()) then ply:SendMessage("Too much invitations to " .. him:Name() .. "! Wait " .. (CurTime() - him.LastInvite)  .. " seconds.", 3, Color(200, 10, 10, 255)) return end
 	local mahTribe = GAMEMODE.FindTribeByID(ply:Team())
 
 	him.LastInvite = CurTime() + 30

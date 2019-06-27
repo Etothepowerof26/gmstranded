@@ -76,16 +76,16 @@ elseif (SERVER) then
 		end
 
 		local coef = 0
-		if (Time >= NightTime && Time < RiseTime) then // Night
+		if (Time >= NightTime and Time < RiseTime) then // Night
 			IsNight = true
 			coef = 0
-		elseif (Time >= RiseTime && Time < DayTime) then // Sunrise
+		elseif (Time >= RiseTime and Time < DayTime) then // Sunrise
 			IsNight = false
 			coef = 1 - (DayTime - Time) / (DayTime - RiseTime) // Calculate progress
-		elseif (Time >= DayTime && Time < SetTime) then // Day
+		elseif (Time >= DayTime and Time < SetTime) then // Day
 			IsNight = false
 			coef = 1
-		elseif (Time >= SetTime && Time < NightTime) then // Sunset
+		elseif (Time >= SetTime and Time < NightTime) then // Sunset
 			IsNight = false
 			coef = (NightTime - Time) / (NightTime - SetTime) // Calculate progress
 		end
@@ -94,14 +94,14 @@ elseif (SERVER) then
 		if (dusk_coef > 0.5) then
 			dusk_coef = 1 - dusk_coef
 			if (IsValid(theSky)) then
-				if (theSky:GetStarTexture() != GMS_Clouds) then
+				if (theSky:GetStarTexture() ~= GMS_Clouds) then
 					theSky:SetStarTexture(GMS_Clouds)
 					theSky:SetStarScale(GMS_StarScale)
 				end
 			end
 		else
 			if (IsValid(theSky)) then
-				if (theSky:GetStarTexture() != GMS_Stars) then
+				if (theSky:GetStarTexture() ~= GMS_Stars) then
 					theSky:SetStarTexture(GMS_Stars)
 					theSky:SetStarScale(0.5)
 				end
@@ -120,7 +120,7 @@ elseif (SERVER) then
 
 		NextPattern = math.Clamp(NightLight + math.ceil((DayLight - NightLight) * coef), NightLight, DayLight)
 
-		if (NextPattern != CurrentPattern) then
+		if (NextPattern ~= CurrentPattern) then
 			for _, light in pairs(ents.FindByClass("light_environment") or {}) do
 				light:Fire("FadeToPattern", string.char(NextPattern))
 				light:Activate()
@@ -132,7 +132,7 @@ elseif (SERVER) then
 			CurrentPattern = NextPattern
 		end
 
-		if (Time == StealTime && GetConVarNumber("gms_night_cleanup") >= 1) then
+		if (Time == StealTime and GetConVarNumber("gms_night_cleanup") >= 1) then
 			local drops = ents.FindByClass("gms_resourcedrop")
 			local weaps = ents.FindByClass("gms_resourcedrop")
 			local msg = false
