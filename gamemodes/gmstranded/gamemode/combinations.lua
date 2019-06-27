@@ -1528,8 +1528,8 @@ COMBI.Req["Gunbarrel"] = 3
 COMBI.Req["Gunmagazine"] = 3
 
 COMBI.SkillReq = {}
-COMBI.SkillReq["Weapon_Crafting"] = 20
-COMBI.SkillReq["Hunting"] = 20
+COMBI.SkillReq["Weapon_Crafting"] = 7
+COMBI.SkillReq["Hunting"] = 10
 
 COMBI.Texture = "gms_icons/weapon_smg1.png"
 COMBI.SwepClass = "weapon_smg1"
@@ -1550,8 +1550,8 @@ COMBI.Req["Gunbarrel"] = 1
 COMBI.Req["Gunmagazine"] = 1
 
 COMBI.SkillReq = {}
-COMBI.SkillReq["Weapon_Crafting"] = 13
-COMBI.SkillReq["Hunting"] = 10
+COMBI.SkillReq["Weapon_Crafting"] = 6
+COMBI.SkillReq["Hunting"] = 7
 
 COMBI.Texture = "gms_icons/weapon_pistol.png"
 COMBI.SwepClass = "weapon_pistol"
@@ -1570,7 +1570,7 @@ COMBI.Req["Iron"] = 5
 COMBI.Req["Gunpowder"] = 5
 
 COMBI.SkillReq = {}
-COMBI.SkillReq["Weapon_Crafting"] = 13
+COMBI.SkillReq["Weapon_Crafting"] = 5
 
 COMBI.Texture = "gms_icons/item_ammo_pistol.png"
 COMBI.SwepClass = "item_ammo_pistol"
@@ -1589,7 +1589,7 @@ COMBI.Req["Iron"] = 10
 COMBI.Req["Gunpowder"] = 10
 
 COMBI.SkillReq = {}
-COMBI.SkillReq["Weapon_Crafting"] = 20
+COMBI.SkillReq["Weapon_Crafting"] = 5
 
 COMBI.Texture = "gms_icons/item_ammo_smg1.png"
 COMBI.SwepClass = "item_ammo_smg1"
