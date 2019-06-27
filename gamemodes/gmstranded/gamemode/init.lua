@@ -2374,9 +2374,19 @@ timer.Create("GMS.SubtractNeeds", 3, 0, function()
 					if (ply.Power < maxPow) then ply.Power = math.min(ply.Power + 10, maxPow) end
 				end
 
-				if (ply.Sleepiness > 0) then ply.Sleepiness = math.Clamp(ply.Sleepiness - 2, 0, 1000) end
-				if (ply.Thirst > 0) then ply.Thirst = math.Clamp(ply.Thirst + AddThirst, 0, 1000) end
-				if (ply.Hunger > 0) then ply.Hunger = math.Clamp(ply.Hunger + AddHunger, 0, 1000) end
+				if (ply.Sleepiness > 0) then
+					local Val = ply:KeyDown(IN_SPEED) and 5 or 2
+					ply.Sleepiness = math.Clamp(ply.Sleepiness - Val, 0, 1000)
+				end
+				
+				if (ply.Thirst > 0) then
+					ply.Thirst = math.Clamp(ply.Thirst + AddThirst, 0, 1000)
+				end
+				
+				if (ply.Hunger > 0) then
+					local Val = ply:KeyDown(IN_SPEED) and -7 or -3
+					ply.Hunger = math.Clamp(ply.Hunger + Val, 0, 1000)
+				end
 			end
 
 			ply:UpdateNeeds()
