@@ -289,6 +289,10 @@ function PlayerMeta:DecResource(resource, int)
 		self:UpdateNeeds()
 	end
 	
+	if self.Resources[resource] < 1 then
+		self.Resources[resource] = nil
+	end
+	
 	net.Start("gms_SetResource")
 		net.WriteString(resource)
 		net.WriteInt(self:GetResource(resource), 32)

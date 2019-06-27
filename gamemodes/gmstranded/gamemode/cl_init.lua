@@ -79,7 +79,8 @@ HintsEng = {
 	"Chance to catch something without Baits is 4 times lower, then with Baits.",
 	"In order to get Iron or Copper you need a pickaxe.",
 	"Having trouble? Read !help to learn the basics of this gamemode.",
-	"In order to invite a player into a tribe, type !invite <player name>"
+	"In order to invite a player into a tribe, type !invite <player name>",
+	"When fighting Antlions, lure them into water to trap them."
 }
 
 timer.Create("Client.HINTS", 360, 0, function()
