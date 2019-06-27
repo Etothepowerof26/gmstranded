@@ -34,6 +34,7 @@ util.AddNetworkString("gms_setneeds")
 util.AddNetworkString("gms_AddUnlock")
 util.AddNetworkString("gms_invite")
 util.AddNetworkString("gms_SetResPackInfo")
+util.AddNetworkString("gms_SetResourceDropInfo")
 util.AddNetworkString("sendTribe")
 
 --Vars
@@ -2685,7 +2686,7 @@ function GM:LoadMapEntity(savegame, max, k)
 	if (entry["PlantName"])       then ent:SetName(entry["PlantName"]) end
 	if (entry["material"] ~= "0") then ent:SetMaterial(entry["material"]) end
 	if (entry["solid"])           then ent:SetSolid(entry["solid"]) end
-
+	
 	for k, v in pairs(entry["keyvalues"]) do ent:SetKeyValue(k, v) end
 	for k, v in pairs(entry["table"]) do ent[k] = v end
 
