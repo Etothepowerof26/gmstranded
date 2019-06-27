@@ -50,7 +50,7 @@ end
 function player.FindByName(str)
 	if (str == nil or str == "") then return false end
 	for id, ply in pairs(player.GetAll()) do
-		if (string.find(string.lower(ply:Name()), string.lower(str)) != nil) then
+		if (string.find(string.lower(ply:Name()), string.lower(str)) ~= nil) then
 			return ply
 		end
 	end
@@ -106,7 +106,7 @@ end
 local EntityMeta = FindMetaTable("Entity")
 
 function EntityMeta:IsTreeModel()
-	if (!IsValid(self) || !self.GetModel || !self:GetModel()) then return false end
+	if (!IsValid(self) or !self.GetModel or !self:GetModel()) then return false end
 
 	for k, v in pairs(GMS.TreeModels) do
 		if (string.lower(v) == string.lower(self:GetModel()) or string.gsub(string.lower(v), "/", "\\") == string.lower(self:GetModel())) then return true end
@@ -117,7 +117,7 @@ function EntityMeta:IsTreeModel()
 	end
 
 	-- Experemental
-	if (SERVER && string.find(self:GetModel(), "tree") && self:CreatedByMap()) then return true end 
+	if (SERVER and string.find(self:GetModel(), "tree") and self:CreatedByMap()) then return true end 
 
 	return false
 end
@@ -138,7 +138,7 @@ function EntityMeta:IsRockModel()
 	end
 	
 	-- Experemental
-	if (SERVER && string.find(self:GetModel(), "rock") && self:CreatedByMap()) then return true end 
+	if (SERVER and string.find(self:GetModel(), "rock") and self:CreatedByMap()) then return true end 
 
 	return false
 end
@@ -209,13 +209,13 @@ end
 
 function GM:PlayerNoClip(pl, on)
 	if (pl:InVehicle()) then return false end
-	if (pl:IsDeveloper() || game.SinglePlayer()) then return true end
+	if (pl:IsDeveloper() or game.SinglePlayer()) then return true end
 	return false
 end
 
 function GM:PhysgunPickup(ply, ent)
 	if (!IsValid(ent)) then return self.BaseClass.PhysgunPickup(self, ply, ent) end 
-	if (ent:IsRockModel() || ent:IsNPC() || ent:IsTreeModel() || ent:IsPlayer() || ent:IsFoodModel() || ent:IsPickupProhibitedModel()) then return false end
+	if (ent:IsRockModel() or ent:IsNPC() or ent:IsTreeModel() or ent:IsPlayer() or ent:IsFoodModel() or ent:IsPickupProhibitedModel()) then return false end
 	
 	if (!SPropProtection.PhysGravGunPickup(ply, ent)) then return false end
 	
@@ -224,7 +224,7 @@ end
 
 function GM:GravGunPunt(ply, ent)
 	if (!IsValid(ent)) then return self.BaseClass.GravGunPunt(self, ply, ent) end 
-	if (ent:IsRockModel() || ent:IsNPC() || ent:IsTreeModel() || ent:IsPlayer() || ent:IsFoodModel() || ent:IsPickupProhibitedModel() || ent:GetClass() == "gms_buildsite") then return false end
+	if (ent:IsRockModel() or ent:IsNPC() or ent:IsTreeModel() or ent:IsPlayer() or ent:IsFoodModel() or ent:IsPickupProhibitedModel() or ent:GetClass() == "gms_buildsite") then return false end
 	
 	if (!SPropProtection.PhysGravGunPickup(ply, ent)) then return false end
 	
@@ -233,7 +233,7 @@ end
 
 function GM:GravGunPickupAllowed(ply, ent)
 	if (!IsValid(ent)) then return self.BaseClass.GravGunPickupAllowed(self, ply, ent) end 
-	if (ent:IsRockModel() || ent:IsNPC() || ent:IsTreeModel() || ent:IsPlayer() || ent:IsFoodModel() || ent:IsPickupProhibitedModel() || ent:GetClass() == "gms_buildsite") then return false end
+	if (ent:IsRockModel() or ent:IsNPC() or ent:IsTreeModel() or ent:IsPlayer() or ent:IsFoodModel() or ent:IsPickupProhibitedModel() or ent:GetClass() == "gms_buildsite") then return false end
 	
 	if (!SPropProtection.PhysGravGunPickup(ply, ent)) then return false end
 	
@@ -243,23 +243,23 @@ end
 function GM:CanTool(ply, tr, mode)
 
 	if (mode == "gms_rope") then
-		if (SERVER && ply:GetResource("Rope") < 1) then ply:SendMessage("You need rope to use this tool.", 3, Color(200, 0, 0, 255)) return false end
-		if (CLIENT && (!Resources["Rope"] || Resources["Rope"] < 1)) then return false end
+		if (SERVER and ply:GetResource("Rope") < 1) then ply:SendMessage("You need rope to use this tool.", 3, Color(200, 0, 0, 255)) return false end
+		if (CLIENT and (!Resources["Rope"] or Resources["Rope"] < 1)) then return false end
 	end
 
 	if (mode == "weld") then
-		if (SERVER && ply:GetResource("Welder") < 1) then ply:SendMessage("You need a Welder to use this tool.", 3, Color(200, 0, 0, 255)) return false end
-		if (CLIENT && (!Resources["Welder"] || Resources["Welder"] < 1)) then return false end
+		if (SERVER and ply:GetResource("Welder") < 1) then ply:SendMessage("You need a Welder to use this tool.", 3, Color(200, 0, 0, 255)) return false end
+		if (CLIENT and (!Resources["Welder"] or Resources["Welder"] < 1)) then return false end
 	end
 
-	if (table.HasValue(GMS.ProhibitedStools, mode) && !ply:IsAdmin()) then ply:SendMessage("This tool is prohibited.", 3, Color(200, 0, 0, 255)) return false end
+	if (table.HasValue(GMS.ProhibitedStools, mode) and !ply:IsAdmin()) then ply:SendMessage("This tool is prohibited.", 3, Color(200, 0, 0, 255)) return false end
 
 	local ent = tr.Entity
-	if (!IsValid(ent) && ent:GetClass() != "worldspawn") then return end 
+	if (!IsValid(ent) and ent:GetClass() ~= "worldspawn") then return end 
 	
 	if (!SPropProtection.PhysGravGunPickup(ply, ent)) then return false end
 
-	if (ent:IsRockModel() || ent:IsNPC() || ent:IsTreeModel() || ent:IsPlayer() || ent:IsFoodModel() || ent:IsPickupProhibitedModel() || ent:GetClass() == "gms_buildsite") then return false end
+	if (ent:IsRockModel() or ent:IsNPC() or ent:IsTreeModel() or ent:IsPlayer() or ent:IsFoodModel() or ent:IsPickupProhibitedModel() or ent:GetClass() == "gms_buildsite") then return false end
 
 	return true
 end
