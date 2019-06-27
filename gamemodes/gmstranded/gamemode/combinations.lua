@@ -1522,10 +1522,10 @@ COMBI.Description = "Will blow the head off the target"
 COMBI.Entity = "gms_gunlab"
 
 COMBI.Req = {}
-COMBI.Req["Gunslide"] = 3
+COMBI.Req["Gunslide"] = 2
 COMBI.Req["Gungrip"] = 2
-COMBI.Req["Gunbarrel"] = 3
-COMBI.Req["Gunmagazine"] = 3
+COMBI.Req["Gunbarrel"] = 2
+COMBI.Req["Gunmagazine"] = 2
 
 COMBI.SkillReq = {}
 COMBI.SkillReq["Weapon_Crafting"] = 7
