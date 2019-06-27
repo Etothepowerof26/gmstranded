@@ -1,0 +1,7 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\weapons\gms\shovel3"
+	"$bumpmap"     "models\weapons\gms\shovel3_n"
+	"$normalmapalphaenvmapmask" "1"
+	"$surfaceprop" "wood"
+}

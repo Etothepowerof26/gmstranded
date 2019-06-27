@@ -1,0 +1,7 @@
+"gmstranded" {
+	"base" "sandbox"
+	"title" "Garry's Mod Stranded"
+	"maps" "^gms_"
+	"menusystem" "1"
+	"workshopid" "133364818"
+}

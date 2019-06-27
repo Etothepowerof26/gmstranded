@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\weapons\gms\shovel1"
+	"$bumpmap"     "models\weapons\gms\shovel1_n"
+	"$normalmapalphaenvmapmask" "1"
+}

@@ -1,0 +1,7 @@
+"VertexLitGeneric"
+{
+	"$baseTexture"	"models/weapons/gms/hatchet_stone"
+	"$bumpmap"		"models/weapons/gms/hatchet_normal"
+	"$surfaceprop"	"metal"
+	"$normalmapalphaenvmapmask"	"1"
+}

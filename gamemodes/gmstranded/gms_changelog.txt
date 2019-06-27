@@ -1,0 +1,18 @@
+
+Done:
+
+To-Do:
+
+* Make sure we don't get players inside NEWLY SPAWNED BUILDINGS/PROPS
+* Tribal leader?
+
+* Change Assembling process?
+* Rewrite CROW
+* Add weather
+* Improve daynight
+* Remake UI, HUD
+* Remake scoreboard? ( we need a way to mute players )
+* Fix antlion in darkness 
+* Add anti prop surfing?
+* A weapon rack?
+* Make zombies find players better?
