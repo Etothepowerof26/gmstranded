@@ -1,27 +1,27 @@
 
-surface.CreateFont( "ScoreboardText", {
+surface.CreateFont("ScoreboardText", {
 	font = "Tahoma",
 	size = 16,
 	weight = 1000,
 	antialias = true,
 	additive = false,
-} )
+})
 
-surface.CreateFont( "ScoreboardSub", {
+surface.CreateFont("ScoreboardSub", {
 	font = "coolvetica",
 	size = 24,
 	weight = 500,
 	antialias = true,
 	additive = false,
-} )
+})
 
-surface.CreateFont( "ScoreboardHead", {
+surface.CreateFont("ScoreboardHead", {
 	font = "coolvetica",
 	size = 48,
 	weight = 500,
 	antialias = true,
 	additive = false,
-} )
+})
 
 function GM:ScoreboardShow()
 	GAMEMODE.ShowScoreboard = true
@@ -55,9 +55,9 @@ function GM:GetTeamScoreInfo()
 		PlayerInfo.Name = pl:Nick()
 		PlayerInfo.PlayerObj = pl
 
-		if ( pl:IsAdmin() ) then PlayerInfo.Name = "[ADMIN] " .. PlayerInfo.Name end
-		if ( pl:IsDeveloper() ) then PlayerInfo.Name = "[DEVELOPER] " .. pl:Nick() end
-		if ( pl:GetNWBool( "AFK" ) ) then PlayerInfo.Name = PlayerInfo.Name  .. " [AFK]" end
+		if (pl:IsAdmin()) then PlayerInfo.Name = "[ADMIN] " .. PlayerInfo.Name end
+		if (pl:IsDeveloper()) then PlayerInfo.Name = "[DEVELOPER] " .. pl:Nick() end
+		if (pl:GetNWBool("AFK")) then PlayerInfo.Name = PlayerInfo.Name  .. " [AFK]" end
 
 		local insertPos = #TeamInfo[_team].Players + 1
 		for idx, info in pairs(TeamInfo[_team].Players) do
@@ -77,16 +77,16 @@ function GM:GetTeamScoreInfo()
 			end
 		end
 	
-		table.insert( TeamInfo[ _team ].Players, insertPos, PlayerInfo )
+		table.insert(TeamInfo[_team].Players, insertPos, PlayerInfo)
 	end
 
 	return TeamInfo
 end
 
 function GM:HUDDrawScoreBoard()
-	if ( !GAMEMODE.ShowScoreboard ) then return end
+	if (!GAMEMODE.ShowScoreboard) then return end
 
-	if ( !GAMEMODE.ScoreDesign ) then
+	if (!GAMEMODE.ScoreDesign) then
 		GAMEMODE.ScoreDesign = {}
 		GAMEMODE.ScoreDesign.HeaderY = 0
 		GAMEMODE.ScoreDesign.Height = ScrH() / 2
@@ -98,38 +98,38 @@ function GM:HUDDrawScoreBoard()
 	local yOffset = 32
 	local scrWidth = ScrW()
 	local scrHeight = ScrH() - 64
-	local boardWidth = scrWidth - ( 2 * xOffset )
+	local boardWidth = scrWidth - (2 * xOffset)
 	local boardHeight = scrHeight
 	local colWidth = 75
 
-	boardWidth = math.Clamp( boardWidth, 400, 600 )
+	boardWidth = math.Clamp(boardWidth, 400, 600)
 	boardHeight = GAMEMODE.ScoreDesign.Height
 
 	xOffset = (ScrW() - boardWidth) / 2.0
 	yOffset = (ScrH() - boardHeight) / 2.0
 	yOffset = yOffset - ScrH() / 4.0
-	yOffset = math.Clamp( yOffset, 32, ScrH() )
+	yOffset = math.Clamp(yOffset, 32, ScrH())
 
-	surface.SetDrawColor( 0, 0, 0, 200 )
-	surface.DrawRect( xOffset, yOffset, boardWidth, boardHeight )
+	surface.SetDrawColor(0, 0, 0, 200)
+	surface.DrawRect(xOffset, yOffset, boardWidth, boardHeight)
 
-	surface.SetDrawColor( 0, 0, 0, 150 )
-	surface.DrawOutlinedRect( xOffset, yOffset, boardWidth, boardHeight )
+	surface.SetDrawColor(0, 0, 0, 150)
+	surface.DrawOutlinedRect(xOffset, yOffset, boardWidth, boardHeight)
 
-	surface.SetDrawColor( 0, 0, 0, 50 )
-	//surface.DrawOutlinedRect( xOffset - 1, yOffset - 1, boardWidth + 2, boardHeight + 2 )
+	surface.SetDrawColor(0, 0, 0, 50)
+	//surface.DrawOutlinedRect(xOffset - 1, yOffset - 1, boardWidth + 2, boardHeight + 2)
 
-	local hostname = GetGlobalString( "ServerName" )
+	local hostname = GetGlobalString("ServerName")
 	local gamemodeName = GAMEMODE.Name .. " - " .. GAMEMODE.Author
 
-	if ( string.len( hostname ) > 32 ) then
+	if (string.len(hostname) > 32) then
 		surface.SetFont("ScoreboardSub")
 	else
 		surface.SetFont("ScoreboardHead")
 	end
 
 	surface.SetTextColor(255, 255, 255, 255)
-	local txWidth, txHeight = surface.GetTextSize( hostname )
+	local txWidth, txHeight = surface.GetTextSize(hostname)
 	local y = yOffset + 5
 	surface.SetTextPos(xOffset + (boardWidth / 2) - (txWidth / 2), y)
 	surface.DrawText(hostname)

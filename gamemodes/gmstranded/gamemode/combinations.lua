@@ -1,8 +1,8 @@
 
 GMS.Combinations = {}
-function GMS.RegisterCombi( tbl, group )
-	if ( !GMS.Combinations[ group ] ) then GMS.Combinations[ group ] = {} end
-	GMS.Combinations[ group ][ string.Replace( tbl.Name, " ", "_" ) ] = tbl
+function GMS.RegisterCombi(tbl, group)
+	if (!GMS.Combinations[group]) then GMS.Combinations[group] = {} end
+	GMS.Combinations[group][string.Replace(tbl.Name, " ", "_")] = tbl
 end
 
 
@@ -22,7 +22,7 @@ COMBI.Results = {}
 COMBI.Results["Flour"] = 1
 COMBI.Results["Stone"] = 1
 
-GMS.RegisterCombi( COMBI, "Combinations" )
+GMS.RegisterCombi(COMBI, "Combinations")
 
 /* Spice */
 local COMBI = {}
@@ -38,7 +38,7 @@ COMBI.Results = {}
 COMBI.Results["Spices"] = 1
 COMBI.Results["Stone"] = 1
 
-GMS.RegisterCombi( COMBI, "Combinations" )
+GMS.RegisterCombi(COMBI, "Combinations")
 
 /* Dough */
 local COMBI = {}
@@ -53,7 +53,7 @@ COMBI.Req["Flour"] = 2
 COMBI.Results = {}
 COMBI.Results["Dough"] = 1
 
-GMS.RegisterCombi( COMBI, "Combinations" )
+GMS.RegisterCombi(COMBI, "Combinations")
 
 /* Dough x10 */
 local COMBI = {}
@@ -68,13 +68,13 @@ COMBI.Req["Flour"] = 15
 COMBI.Results = {}
 COMBI.Results["Dough"] = 10
 
-GMS.RegisterCombi( COMBI, "Combinations" )
+GMS.RegisterCombi(COMBI, "Combinations")
 
 /* Rope */
 local COMBI = {}
 
 COMBI.Name = "Rope"
-COMBI.Description = "Allows you to use Rope tool ( Using Rope Tool will consume the Rope ) and used in fishing rod crafting."
+COMBI.Description = "Allows you to use Rope tool (Using Rope Tool will consume the Rope) and used in fishing rod crafting."
 
 COMBI.Req = {}
 COMBI.Req["Herbs"] = 5
@@ -84,7 +84,7 @@ COMBI.Req["Water_Bottles"] = 1
 COMBI.Results = {}
 COMBI.Results["Rope"] = 1
 
-GMS.RegisterCombi( COMBI, "Combinations" )
+GMS.RegisterCombi(COMBI, "Combinations")
 
 /* Welder */
 local COMBI = {}
@@ -93,14 +93,14 @@ COMBI.Name = "Welder"
 COMBI.Description = "Allows you to use Weld Tool. You still need the Tool Gun though."
 
 COMBI.Req = {}
-COMBI.Req[ "Wood" ] = 10
-COMBI.Req[ "Stone" ] = 10
-COMBI.Req[ "Water_Bottles" ] = 1
+COMBI.Req["Wood"] = 10
+COMBI.Req["Stone"] = 10
+COMBI.Req["Water_Bottles"] = 1
 
 COMBI.Results = {}
-COMBI.Results[ "Welder" ] = 1
+COMBI.Results["Welder"] = 1
 
-GMS.RegisterCombi( COMBI, "Combinations" )
+GMS.RegisterCombi(COMBI, "Combinations")
 
 /* Concrete */
 local COMBI = {}
@@ -115,7 +115,7 @@ COMBI.Req["Water_Bottles"] = 2
 COMBI.Results = {}
 COMBI.Results["Concrete"] = 1
 
-GMS.RegisterCombi( COMBI, "Combinations" )
+GMS.RegisterCombi(COMBI, "Combinations")
 
 /* Urine */
 local COMBI = {}
@@ -129,7 +129,7 @@ COMBI.Req["Water_Bottles"] = 2
 COMBI.Results = {}
 COMBI.Results["Urine_Bottles"] = 1
 
-GMS.RegisterCombi( COMBI, "Combinations" )
+GMS.RegisterCombi(COMBI, "Combinations")
 
 /* Urine 10x */
 local COMBI = {}
@@ -143,7 +143,7 @@ COMBI.Req["Water_Bottles"] = 20
 COMBI.Results = {}
 COMBI.Results["Urine_Bottles"] = 10
 
-GMS.RegisterCombi( COMBI, "Combinations" )
+GMS.RegisterCombi(COMBI, "Combinations")
 
 /* Medicine */
 local COMBI = {}
@@ -159,7 +159,7 @@ COMBI.Req["Urine_Bottles"] = 1
 COMBI.Results = {}
 COMBI.Results["Medicine"] = 1
 
-GMS.RegisterCombi( COMBI, "Combinations" )
+GMS.RegisterCombi(COMBI, "Combinations")
 
 
 /* ------------------------ Structures ------------------------*/
@@ -178,7 +178,7 @@ COMBI.Results = "gms_resourcepack"
 COMBI.Texture = "gms_icons/gms_resourcepack.png"
 COMBI.BuildSiteModel = "models/items/item_item_crate.mdl"
 
-GMS.RegisterCombi( COMBI, "Structures" )
+GMS.RegisterCombi(COMBI, "Structures")
 
 ------------------------------------------------------------------------
 
@@ -195,7 +195,7 @@ COMBI.Results = "gms_clock_big"
 COMBI.Texture = "gms_icons/gms_clock_big.png"
 COMBI.BuildSiteModel = "models/props_trainstation/trainstation_clock001.mdl"
 
-GMS.RegisterCombi( COMBI, "Structures" )
+GMS.RegisterCombi(COMBI, "Structures")
 
 /* Fridge */
 local COMBI = {}
@@ -210,7 +210,7 @@ COMBI.Results = "gms_fridge"
 COMBI.Texture = "gms_icons/gms_fridge.png"
 COMBI.BuildSiteModel = "models/props_c17/FurnitureFridge001a.mdl"
 
-GMS.RegisterCombi( COMBI, "Structures" )
+GMS.RegisterCombi(COMBI, "Structures")
 
 /* Stone Workbench */
 local COMBI = {}
@@ -226,7 +226,7 @@ COMBI.Results = "gms_stoneworkbench"
 COMBI.Texture = "gms_icons/gms_stoneworkbench.png"
 COMBI.BuildSiteModel = "models/props/de_piranesi/pi_merlon.mdl"
 
-GMS.RegisterCombi( COMBI, "Structures" )
+GMS.RegisterCombi(COMBI, "Structures")
 
 /* Copper Workbench */
 local COMBI = {}
@@ -243,7 +243,7 @@ COMBI.Results = "gms_copperworkbench"
 COMBI.Texture = "gms_icons/gms_copperworkbench.png"
 COMBI.BuildSiteModel = "models/props_combine/breendesk.mdl"
 
-GMS.RegisterCombi( COMBI, "Structures" )
+GMS.RegisterCombi(COMBI, "Structures")
 
 /* Iron Workbench */
 local COMBI = {}
@@ -260,7 +260,7 @@ COMBI.Results = "gms_ironworkbench"
 COMBI.Texture = "gms_icons/gms_ironworkbench.png"
 COMBI.BuildSiteModel = "models/props_wasteland/controlroom_desk001b.mdl"
 
-GMS.RegisterCombi( COMBI, "Structures" )
+GMS.RegisterCombi(COMBI, "Structures")
 
 /* Tech Workbench */
 local COMBI = {}
@@ -277,7 +277,7 @@ COMBI.Results = "gms_techworkbench"
 COMBI.Texture = "gms_icons/gms_techworkbench.png"
 COMBI.BuildSiteModel = "models/props_lab/reciever_cart.mdl"
 
-GMS.RegisterCombi( COMBI, "Structures" )
+GMS.RegisterCombi(COMBI, "Structures")
 
 /* Drinking Fountain */
 local COMBI = {}
@@ -294,7 +294,7 @@ COMBI.Results = "gms_waterfountain"
 COMBI.Texture = "gms_icons/gms_waterfountain.png"
 COMBI.BuildSiteModel = "models/props/de_inferno/fountain.mdl"
 
-GMS.RegisterCombi( COMBI, "Structures" )
+GMS.RegisterCombi(COMBI, "Structures")
 
 /* Stove */
 local COMBI = {}
@@ -311,7 +311,7 @@ COMBI.Results = "gms_stove"
 COMBI.Texture = "gms_icons/gms_stove.png"
 COMBI.BuildSiteModel = "models/props_c17/furniturestove001a.mdl"
 
-GMS.RegisterCombi( COMBI, "Structures" )
+GMS.RegisterCombi(COMBI, "Structures")
 
 /* Stone Furnace */
 local COMBI = {}
@@ -326,7 +326,7 @@ COMBI.Results = "gms_stonefurnace"
 COMBI.Texture = "gms_icons/gms_stonefurnace.png"
 COMBI.BuildSiteModel = "models/props/de_inferno/ClayOven.mdl"
 
-GMS.RegisterCombi( COMBI, "Structures" )
+GMS.RegisterCombi(COMBI, "Structures")
 
 /* Copper Furnace */
 local COMBI = {}
@@ -341,7 +341,7 @@ COMBI.Results = "gms_copperfurnace"
 COMBI.Texture = "gms_icons/gms_copperfurnace.png"
 COMBI.BuildSiteModel = "models/props/cs_militia/furnace01.mdl"
 
-GMS.RegisterCombi( COMBI, "Structures" )
+GMS.RegisterCombi(COMBI, "Structures")
 
 /* Iron Furnace */
 local COMBI = {}
@@ -356,7 +356,7 @@ COMBI.Results = "gms_ironfurnace"
 COMBI.Texture = "gms_icons/gms_ironfurnace.png"
 COMBI.BuildSiteModel = "models/props_c17/furniturefireplace001a.mdl"
 
-GMS.RegisterCombi( COMBI, "Structures" )
+GMS.RegisterCombi(COMBI, "Structures")
 
 /* Grinding Stone */
 local COMBI = {}
@@ -371,7 +371,7 @@ COMBI.Results = "gms_grindingstone"
 COMBI.Texture = "gms_icons/gms_grindingstone.png"
 COMBI.BuildSiteModel = "models/props_combine/combine_mine01.mdl"
 
-GMS.RegisterCombi( COMBI, "Structures" )
+GMS.RegisterCombi(COMBI, "Structures")
 
 /* Factory */
 local COMBI = {}
@@ -388,7 +388,7 @@ COMBI.Results = "gms_factory"
 COMBI.Texture = "gms_icons/gms_factory.png"
 COMBI.BuildSiteModel = "models/props_c17/factorymachine01.mdl"
 
-GMS.RegisterCombi( COMBI, "Structures" )
+GMS.RegisterCombi(COMBI, "Structures")
 
 /* Gunlab */
 local COMBI = {}
@@ -404,7 +404,7 @@ COMBI.Results = "gms_gunlab"
 COMBI.Texture = "gms_icons/gms_gunlab.png"
 COMBI.BuildSiteModel = "models/props/cs_militia/gun_cabinet.mdl"
 
-GMS.RegisterCombi( COMBI, "Structures" )
+GMS.RegisterCombi(COMBI, "Structures")
 
 /* GunChunks */
 local COMBI = {}
@@ -421,7 +421,7 @@ COMBI.Results = "gms_gunchunks"
 COMBI.Texture = "gms_icons/gms_gunchunks.png"
 COMBI.BuildSiteModel = "models/Gibs/airboat_broken_engine.mdl"
 
-GMS.RegisterCombi( COMBI, "Structures" )
+GMS.RegisterCombi(COMBI, "Structures")
 
 /* ------------------------ Stone Furnace ------------------------*/
 
@@ -438,7 +438,7 @@ COMBI.Req["Copper_Ore"] = 1
 COMBI.Results = {}
 COMBI.Results["Copper"] = 1
 
-GMS.RegisterCombi( COMBI, "gms_stonefurnace" )
+GMS.RegisterCombi(COMBI, "gms_stonefurnace")
 
 /* Copper Ore to Copper x5 */
 local COMBI = {}
@@ -453,7 +453,7 @@ COMBI.Req["Copper_Ore"] = 5
 COMBI.Results = {}
 COMBI.Results["Copper"] = 5
 
-GMS.RegisterCombi( COMBI, "gms_stonefurnace" )
+GMS.RegisterCombi(COMBI, "gms_stonefurnace")
 
 /* Copper Ore to Copper x10 */
 local COMBI = {}
@@ -468,7 +468,7 @@ COMBI.Req["Copper_Ore"] = 10
 COMBI.Results = {}
 COMBI.Results["Copper"] = 10
 
-GMS.RegisterCombi( COMBI, "gms_stonefurnace" )
+GMS.RegisterCombi(COMBI, "gms_stonefurnace")
 
 /* Copper Ore to Copper x25 */
 local COMBI = {}
@@ -483,7 +483,7 @@ COMBI.Req["Copper_Ore"] = 25
 COMBI.Results = {}
 COMBI.Results["Copper"] = 25
 
-GMS.RegisterCombi( COMBI, "gms_stonefurnace" )
+GMS.RegisterCombi(COMBI, "gms_stonefurnace")
 
 /* Allsmelt Copper */
 local COMBI = {}
@@ -501,7 +501,7 @@ COMBI.Results["Copper"] = 1
 COMBI.AllSmelt = true
 COMBI.Max = 35
 
-GMS.RegisterCombi( COMBI, "gms_stonefurnace" )
+GMS.RegisterCombi(COMBI, "gms_stonefurnace")
 
 /* ------------------------ Copper Furnace ------------------------*/
 
@@ -518,7 +518,7 @@ COMBI.Req["Iron_Ore"] = 1
 COMBI.Results = {}
 COMBI.Results["Iron"] = 1
 
-GMS.RegisterCombi( COMBI, "gms_copperfurnace" )
+GMS.RegisterCombi(COMBI, "gms_copperfurnace")
 
 /* Iron Ore to Iron x5 */
 local COMBI = {}
@@ -533,7 +533,7 @@ COMBI.Req["Iron_Ore"] = 5
 COMBI.Results = {}
 COMBI.Results["Iron"] = 5
 
-GMS.RegisterCombi( COMBI, "gms_copperfurnace" )
+GMS.RegisterCombi(COMBI, "gms_copperfurnace")
 
 /* Iron Ore to Iron x10 */
 local COMBI = {}
@@ -548,7 +548,7 @@ COMBI.Req["Iron_Ore"] = 10
 COMBI.Results = {}
 COMBI.Results["Iron"] = 10
 
-GMS.RegisterCombi( COMBI, "gms_copperfurnace" )
+GMS.RegisterCombi(COMBI, "gms_copperfurnace")
 
 /* Iron Ore to Iron x25 */
 local COMBI = {}
@@ -563,7 +563,7 @@ COMBI.Req["Iron_Ore"] = 25
 COMBI.Results = {}
 COMBI.Results["Iron"] = 25
 
-GMS.RegisterCombi( COMBI, "gms_copperfurnace" )
+GMS.RegisterCombi(COMBI, "gms_copperfurnace")
 
 /* Allsmelt Iron  */
 local COMBI = {}
@@ -581,7 +581,7 @@ COMBI.Results["Iron"] = 1
 COMBI.AllSmelt = true
 COMBI.Max = 50
 
-GMS.RegisterCombi( COMBI, "gms_copperfurnace" )
+GMS.RegisterCombi(COMBI, "gms_copperfurnace")
 
 /* Sulphur */
 local COMBI = {}
@@ -596,7 +596,7 @@ COMBI.Req["Stone"] = 10
 COMBI.Results = {}
 COMBI.Results["Sulphur"] = 5
 
-GMS.RegisterCombi( COMBI, "gms_copperfurnace" )
+GMS.RegisterCombi(COMBI, "gms_copperfurnace")
 
 /* Sulphur 10 */
 local COMBI = {}
@@ -611,7 +611,7 @@ COMBI.Req["Stone"] = 20
 COMBI.Results = {}
 COMBI.Results["Sulphur"] = 10
 
-GMS.RegisterCombi( COMBI, "gms_copperfurnace" )
+GMS.RegisterCombi(COMBI, "gms_copperfurnace")
 
 /* ------------------------ Iron Furnace ------------------------*/
 
@@ -628,7 +628,7 @@ COMBI.Req["Sand"] = 2
 COMBI.Results = {}
 COMBI.Results["Glass"] = 1
 
-GMS.RegisterCombi( COMBI, "gms_ironfurnace" )
+GMS.RegisterCombi(COMBI, "gms_ironfurnace")
 
 /* Charcoal */
 local COMBI = {}
@@ -643,7 +643,7 @@ COMBI.Req["Wood"] = 5
 COMBI.Results = {}
 COMBI.Results["Charcoal"] = 1
 
-GMS.RegisterCombi( COMBI, "gms_ironfurnace" )
+GMS.RegisterCombi(COMBI, "gms_ironfurnace")
 
 /* Charcoal 10x */
 local COMBI = {}
@@ -658,11 +658,11 @@ COMBI.Req["Wood"] = 15
 COMBI.Results = {}
 COMBI.Results["Charcoal"] = 10
 
-GMS.RegisterCombi( COMBI, "gms_ironfurnace" )
+GMS.RegisterCombi(COMBI, "gms_ironfurnace")
 
 /*------------------------ Factory ------------------------*/
 
-/* Glass ( 10 ) */
+/* Glass (10) */
 local COMBI = {}
 
 COMBI.Name = "Glass 10x"
@@ -675,9 +675,9 @@ COMBI.Req["Sand"] = 25
 COMBI.Results = {}
 COMBI.Results["Glass"] = 10
 
-GMS.RegisterCombi( COMBI, "gms_factory" )
+GMS.RegisterCombi(COMBI, "gms_factory")
 
-/* Glass ( 25 ) */
+/* Glass (25) */
 local COMBI = {}
 
 COMBI.Name = "Glass 25x"
@@ -690,9 +690,9 @@ COMBI.Req["Sand"] = 50
 COMBI.Results = {}
 COMBI.Results["Glass"] = 25
 
-GMS.RegisterCombi( COMBI, "gms_factory" )
+GMS.RegisterCombi(COMBI, "gms_factory")
 
-/* Glass ( 50 ) */
+/* Glass (50) */
 local COMBI = {}
 
 COMBI.Name = "Glass 50x"
@@ -705,9 +705,9 @@ COMBI.Req["Sand"] = 75
 COMBI.Results = {}
 COMBI.Results["Glass"] = 50
 
-GMS.RegisterCombi( COMBI, "gms_factory" )
+GMS.RegisterCombi(COMBI, "gms_factory")
 
-/* Iron from Stone ( 10 ) */
+/* Iron from Stone (10) */
 local COMBI = {}
 
 COMBI.Name = "Iron 10x"
@@ -720,9 +720,9 @@ COMBI.Req["Stone"] = 25
 COMBI.Results = {}
 COMBI.Results["Iron"] = 10
 
-GMS.RegisterCombi( COMBI, "gms_factory" )
+GMS.RegisterCombi(COMBI, "gms_factory")
 
-/* Iron from Stone ( 25 ) */
+/* Iron from Stone (25) */
 local COMBI = {}
 
 COMBI.Name = "Iron 25x"
@@ -735,9 +735,9 @@ COMBI.Req["Stone"] = 50
 COMBI.Results = {}
 COMBI.Results["Iron"] = 25
 
-GMS.RegisterCombi( COMBI, "gms_factory" )
+GMS.RegisterCombi(COMBI, "gms_factory")
 
-/* Iron from Stone ( 50 ) */
+/* Iron from Stone (50) */
 local COMBI = {}
 
 COMBI.Name = "Iron 50x"
@@ -750,7 +750,7 @@ COMBI.Req["Stone"] = 75
 COMBI.Results = {}
 COMBI.Results["Iron"] = 50
 
-GMS.RegisterCombi( COMBI, "gms_factory" )
+GMS.RegisterCombi(COMBI, "gms_factory")
 
 /* Allsmelt Iron */
 local COMBI = {}
@@ -768,7 +768,7 @@ COMBI.Results["Iron"] = 1
 COMBI.AllSmelt = true
 COMBI.Max = 200
 
-GMS.RegisterCombi( COMBI, "gms_factory" )
+GMS.RegisterCombi(COMBI, "gms_factory")
 
 /* Allsmelt Copper */
 local COMBI = {}
@@ -786,9 +786,9 @@ COMBI.Results["Copper"] = 1
 COMBI.AllSmelt = true
 COMBI.Max = 200
 
-GMS.RegisterCombi( COMBI, "gms_factory" )
+GMS.RegisterCombi(COMBI, "gms_factory")
 
-/* Stone to Sand ( 10 ) */
+/* Stone to Sand (10) */
 local COMBI = {}
 
 COMBI.Name = "Sand 10x"
@@ -801,9 +801,9 @@ COMBI.Req["Stone"] = 10
 COMBI.Results = {}
 COMBI.Results["Sand"] = 10
 
-GMS.RegisterCombi( COMBI, "gms_factory" )
+GMS.RegisterCombi(COMBI, "gms_factory")
 
-/* Stone to Sand ( 25 ) */
+/* Stone to Sand (25) */
 local COMBI = {}
 
 COMBI.Name = "Sand 25x"
@@ -816,9 +816,9 @@ COMBI.Req["Stone"] = 20
 COMBI.Results = {}
 COMBI.Results["Sand"] = 25
 
-GMS.RegisterCombi( COMBI, "gms_factory" )
+GMS.RegisterCombi(COMBI, "gms_factory")
 
-/* Stone to Sand ( 50 ) */
+/* Stone to Sand (50) */
 local COMBI = {}
 
 COMBI.Name = "Sand 50x"
@@ -831,9 +831,9 @@ COMBI.Req["Stone"] = 30
 COMBI.Results = {}
 COMBI.Results["Sand"] = 50
 
-GMS.RegisterCombi( COMBI, "gms_factory" )
+GMS.RegisterCombi(COMBI, "gms_factory")
 
-/* Resin ( 5 ) */
+/* Resin (5) */
 local COMBI = {}
 
 COMBI.Name = "Resin 5x"
@@ -847,9 +847,9 @@ COMBI.Req["Water_Bottles"] = 1
 COMBI.Results = {}
 COMBI.Results["Resin"] = 5
 
-GMS.RegisterCombi( COMBI, "gms_factory" )
+GMS.RegisterCombi(COMBI, "gms_factory")
 
-/* Resin ( 10 ) */
+/* Resin (10) */
 local COMBI = {}
 
 COMBI.Name = "Resin 10x"
@@ -863,9 +863,9 @@ COMBI.Req["Water_Bottles"] = 2
 COMBI.Results = {}
 COMBI.Results["Resin"] = 10
 
-GMS.RegisterCombi( COMBI, "gms_factory" )
+GMS.RegisterCombi(COMBI, "gms_factory")
 
-/* Resin ( 25 ) */
+/* Resin (25) */
 local COMBI = {}
 
 COMBI.Name = "Resin 25x"
@@ -879,9 +879,9 @@ COMBI.Req["Water_Bottles"] = 4
 COMBI.Results = {}
 COMBI.Results["Resin"] = 25
 
-GMS.RegisterCombi( COMBI, "gms_factory" )
+GMS.RegisterCombi(COMBI, "gms_factory")
 
-/* Plastic ( 10 ) */
+/* Plastic (10) */
 local COMBI = {}
 
 COMBI.Name = "Plastic 10x"
@@ -894,9 +894,9 @@ COMBI.Req["Resin"] = 10
 COMBI.Results = {}
 COMBI.Results["Plastic"] = 10
 
-GMS.RegisterCombi( COMBI, "gms_factory" )
+GMS.RegisterCombi(COMBI, "gms_factory")
 
-/* Plastic ( 25 ) */
+/* Plastic (25) */
 local COMBI = {}
 
 COMBI.Name = "Plastic 25x"
@@ -909,7 +909,7 @@ COMBI.Req["Resin"] = 20
 COMBI.Results = {}
 COMBI.Results["Plastic"] = 25
 
-GMS.RegisterCombi( COMBI, "gms_factory" )
+GMS.RegisterCombi(COMBI, "gms_factory")
 
 /* ------------------------ Grinding Stone ------------------------*/
 
@@ -926,7 +926,7 @@ COMBI.Req["Stone"] = 1
 COMBI.Results = {}
 COMBI.Results["Sand"] = 1
 
-GMS.RegisterCombi( COMBI, "gms_grindingstone" )
+GMS.RegisterCombi(COMBI, "gms_grindingstone")
 
 /* Stone to Sand x5 */
 local COMBI = {}
@@ -941,7 +941,7 @@ COMBI.Req["Stone"] = 5
 COMBI.Results = {}
 COMBI.Results["Sand"] = 5
 
-GMS.RegisterCombi( COMBI, "gms_grindingstone" )
+GMS.RegisterCombi(COMBI, "gms_grindingstone")
 
 /* Stone to Sand x10 */
 local COMBI = {}
@@ -956,7 +956,7 @@ COMBI.Req["Stone"] = 10
 COMBI.Results = {}
 COMBI.Results["Sand"] = 10
 
-GMS.RegisterCombi( COMBI, "gms_grindingstone" )
+GMS.RegisterCombi(COMBI, "gms_grindingstone")
 
 /* Grain to Flour x1 */
 local COMBI = {}
@@ -971,7 +971,7 @@ COMBI.Req["Grain_Seeds"] = 2
 COMBI.Results = {}
 COMBI.Results["Flour"] = 1
 
-GMS.RegisterCombi( COMBI, "gms_grindingstone" )
+GMS.RegisterCombi(COMBI, "gms_grindingstone")
 
 /* Grain to Flour x5 */
 local COMBI = {}
@@ -986,7 +986,7 @@ COMBI.Req["Grain_Seeds"] = 5
 COMBI.Results = {}
 COMBI.Results["Flour"] = 3
 
-GMS.RegisterCombi( COMBI, "gms_grindingstone" )
+GMS.RegisterCombi(COMBI, "gms_grindingstone")
 
 /* Grain to Flour x10 */
 local COMBI = {}
@@ -1001,13 +1001,13 @@ COMBI.Req["Grain_Seeds"] = 10
 COMBI.Results = {}
 COMBI.Results["Flour"] = 7
 
-GMS.RegisterCombi( COMBI, "gms_grindingstone" )
+GMS.RegisterCombi(COMBI, "gms_grindingstone")
 
 /* All Grain to Flour*/
 local COMBI = {}
 
 COMBI.Name = "All Flour"
-COMBI.Description = "Converts Grain Seeds to Flour ( 10:6 )."
+COMBI.Description = "Converts Grain Seeds to Flour (10:6)."
 COMBI.Entity = "gms_grindingstone"
 
 COMBI.Req = {}
@@ -1019,7 +1019,7 @@ COMBI.Results["Flour"] = 1
 COMBI.AllSmelt = true
 COMBI.Max = 25
 
-GMS.RegisterCombi( COMBI, "gms_grindingstone" )
+GMS.RegisterCombi(COMBI, "gms_grindingstone")
 
 /*------------------------ Cooking ------------------------*/
 
@@ -1035,7 +1035,7 @@ COMBI.Req["Trout"] = 1
 COMBI.Req["Herbs"] = 3
 COMBI.FoodValue = 400
 
-GMS.RegisterCombi( COMBI, "Cooking" )
+GMS.RegisterCombi(COMBI, "Cooking")
 
 /* Fried meat */
 local COMBI = {}
@@ -1049,7 +1049,7 @@ COMBI.Req["Meat"] = 1
 
 COMBI.FoodValue = 250
 
-GMS.RegisterCombi( COMBI, "Cooking" )
+GMS.RegisterCombi(COMBI, "Cooking")
 
 /* Sushi */
 local COMBI = {}
@@ -1063,7 +1063,7 @@ COMBI.Req["Bass"] = 2
 
 COMBI.FoodValue = 300
 
-GMS.RegisterCombi( COMBI, "Cooking" )
+GMS.RegisterCombi(COMBI, "Cooking")
 
 /* Fish soup */
 local COMBI = {}
@@ -1083,7 +1083,7 @@ COMBI.SkillReq["Cooking"] = 2
 
 COMBI.FoodValue = 400
 
-GMS.RegisterCombi( COMBI, "Cooking" )
+GMS.RegisterCombi(COMBI, "Cooking")
 
 /* Meatballs */
 local COMBI = {}
@@ -1102,7 +1102,7 @@ COMBI.SkillReq["Cooking"] = 2
 
 COMBI.FoodValue = 400
 
-GMS.RegisterCombi( COMBI, "Cooking" )
+GMS.RegisterCombi(COMBI, "Cooking")
 
 /* Fried fish */
 local COMBI = {}
@@ -1115,7 +1115,7 @@ COMBI.Req = {}
 COMBI.Req["Bass"] = 1
 COMBI.FoodValue = 200
 
-GMS.RegisterCombi( COMBI, "Cooking" )
+GMS.RegisterCombi(COMBI, "Cooking")
 
 /* Berry Pie */
 local COMBI = {}
@@ -1134,7 +1134,7 @@ COMBI.SkillReq["Cooking"] = 5
 
 COMBI.FoodValue = 700
 
-GMS.RegisterCombi( COMBI, "Cooking" )
+GMS.RegisterCombi(COMBI, "Cooking")
 
 /* Rock cake */
 local COMBI = {}
@@ -1148,7 +1148,7 @@ COMBI.Req["Iron"] = 2
 COMBI.Req["Herbs"] = 1
 COMBI.FoodValue = 50
  
-GMS.RegisterCombi( COMBI, "Cooking" )
+GMS.RegisterCombi(COMBI, "Cooking")
 
 /* Salad */
 local COMBI = {}
@@ -1161,7 +1161,7 @@ COMBI.Req = {}
 COMBI.Req["Herbs"] = 2
 COMBI.FoodValue = 100
  
-GMS.RegisterCombi( COMBI, "Cooking" )
+GMS.RegisterCombi(COMBI, "Cooking")
 
 /* Meal */
 local COMBI = {}
@@ -1181,7 +1181,7 @@ COMBI.SkillReq["Cooking"] = 20
 
 COMBI.FoodValue = 1000
  
-GMS.RegisterCombi( COMBI, "Cooking" )
+GMS.RegisterCombi(COMBI, "Cooking")
 
 /* Shark soup */
 local COMBI = {}
@@ -1200,7 +1200,7 @@ COMBI.SkillReq["Cooking"] = 15
 
 COMBI.FoodValue = 850
 
-GMS.RegisterCombi( COMBI, "Cooking" )
+GMS.RegisterCombi(COMBI, "Cooking")
 
 /* Bread */
 local COMBI = {}
@@ -1218,7 +1218,7 @@ COMBI.SkillReq["Cooking"] = 5
 
 COMBI.FoodValue = 800
 
-GMS.RegisterCombi( COMBI, "Cooking" )
+GMS.RegisterCombi(COMBI, "Cooking")
 
 /* Hamburger */
 local COMBI = {}
@@ -1237,7 +1237,7 @@ COMBI.SkillReq["Cooking"] = 3
 
 COMBI.FoodValue = 850
  
-GMS.RegisterCombi( COMBI, "Cooking" )
+GMS.RegisterCombi(COMBI, "Cooking")
 
 /* ------------------------ Stone Workbench ------------------------*/
 
@@ -1255,7 +1255,7 @@ COMBI.Req["Wood"] = 10
 COMBI.Texture = "gms_icons/gms_weapon.png"
 COMBI.SwepClass = "gms_stonehatchet"
 
-GMS.RegisterCombi( COMBI, "gms_stoneworkbench" )
+GMS.RegisterCombi(COMBI, "gms_stoneworkbench")
 
 /* Wooden Spoon */
 local COMBI = {}
@@ -1273,7 +1273,7 @@ COMBI.SkillReq["Weapon_Crafting"] = 3
 COMBI.Texture = "gms_icons/gms_weapon.png"
 COMBI.SwepClass = "gms_woodenspoon"
 
-GMS.RegisterCombi( COMBI, "gms_stoneworkbench" )
+GMS.RegisterCombi(COMBI, "gms_stoneworkbench")
 
 /* Stone Pickaxe */
 local COMBI = {}
@@ -1288,7 +1288,7 @@ COMBI.Req["Wood"] = 5
 COMBI.Texture = "gms_icons/gms_weapon.png"
 COMBI.SwepClass = "gms_stonepickaxe"
 
-GMS.RegisterCombi( COMBI, "gms_stoneworkbench" )
+GMS.RegisterCombi(COMBI, "gms_stoneworkbench")
 
 /* Fishing rod */
 local COMBI = {}
@@ -1307,7 +1307,7 @@ COMBI.SkillReq["Weapon_Crafting"] = 4
 COMBI.Texture = "gms_icons/gms_weapon.png"
 COMBI.SwepClass = "gms_woodenfishingrod"
 
-GMS.RegisterCombi( COMBI, "gms_stoneworkbench" )
+GMS.RegisterCombi(COMBI, "gms_stoneworkbench")
 
 /* ------------------------ Copper Workbench ------------------------*/
 
@@ -1325,7 +1325,7 @@ COMBI.Req["Wood"] = 10
 COMBI.Texture = "gms_icons/gms_weapon.png"
 COMBI.SwepClass = "gms_copperhatchet"
 
-GMS.RegisterCombi( COMBI, "gms_copperworkbench" )
+GMS.RegisterCombi(COMBI, "gms_copperworkbench")
 
 /* Copper Hammer */
 local COMBI = {}
@@ -1344,7 +1344,7 @@ COMBI.SkillReq["Weapon_Crafting"] = 5
 COMBI.Texture = "gms_icons/gms_weapon.png"
 COMBI.SwepClass = "gms_wrench"
 
-GMS.RegisterCombi( COMBI, "gms_copperworkbench" )
+GMS.RegisterCombi(COMBI, "gms_copperworkbench")
 
 /* Copper Pickaxe */
 local COMBI = {}
@@ -1360,7 +1360,7 @@ COMBI.Req["Wood"] = 5
 COMBI.Texture = "gms_icons/gms_weapon.png"
 COMBI.SwepClass = "gms_copperpickaxe"
 
-GMS.RegisterCombi( COMBI, "gms_copperworkbench" )
+GMS.RegisterCombi(COMBI, "gms_copperworkbench")
 
 /* Frying pan */
 local COMBI = {}
@@ -1379,7 +1379,7 @@ COMBI.SkillReq["Weapon_Crafting"] = 5
 COMBI.Texture = "gms_icons/gms_weapon.png"
 COMBI.SwepClass = "gms_fryingpan"
 
-GMS.RegisterCombi( COMBI, "gms_copperworkbench" )
+GMS.RegisterCombi(COMBI, "gms_copperworkbench")
 
 /* Shovel */
 local COMBI = {}
@@ -1398,7 +1398,7 @@ COMBI.SkillReq["Weapon_Crafting"] = 8
 COMBI.Texture = "gms_icons/gms_weapon.png"
 COMBI.SwepClass = "gms_shovel"
 
-GMS.RegisterCombi( COMBI, "gms_copperworkbench" )
+GMS.RegisterCombi(COMBI, "gms_copperworkbench")
 
 /* Crowbar */
 local COMBI = {}
@@ -1417,7 +1417,7 @@ COMBI.SkillReq["Weapon_Crafting"] = 6
 COMBI.Texture = "gms_icons/gms_weapon.png"
 COMBI.SwepClass = "weapon_crowbar"
 
-GMS.RegisterCombi( COMBI, "gms_copperworkbench" )
+GMS.RegisterCombi(COMBI, "gms_copperworkbench")
 
 /* ------------------------ Iron Workbench ------------------------*/
 
@@ -1438,7 +1438,7 @@ COMBI.SkillReq["Weapon_Crafting"] = 7
 COMBI.Texture = "gms_icons/gms_weapon.png"
 COMBI.SwepClass = "gms_sickle"
 
-GMS.RegisterCombi( COMBI, "gms_ironworkbench" )
+GMS.RegisterCombi(COMBI, "gms_ironworkbench")
 
 /* Strainer */
 local COMBI = {}
@@ -1457,7 +1457,7 @@ COMBI.SkillReq["Weapon_Crafting"] = 10
 COMBI.Texture = "gms_icons/gms_weapon.png"
 COMBI.SwepClass = "gms_strainer"
 
-GMS.RegisterCombi( COMBI, "gms_ironworkbench" )
+GMS.RegisterCombi(COMBI, "gms_ironworkbench")
 
 /* Advanced Fishing rod */
 local COMBI = {}
@@ -1478,7 +1478,7 @@ COMBI.SkillReq["Fishing"] = 5
 COMBI.Texture = "gms_icons/gms_weapon.png"
 COMBI.SwepClass = "gms_advancedfishingrod"
 
-GMS.RegisterCombi( COMBI, "gms_ironworkbench" )
+GMS.RegisterCombi(COMBI, "gms_ironworkbench")
 
 /* Iron Pickaxe */
 local COMBI = {}
@@ -1493,7 +1493,7 @@ COMBI.Req["Wood"] = 5
 COMBI.Texture = "gms_icons/gms_weapon.png"
 COMBI.SwepClass = "gms_ironpickaxe"
 
-GMS.RegisterCombi( COMBI, "gms_ironworkbench" )
+GMS.RegisterCombi(COMBI, "gms_ironworkbench")
 
 /* Iron Hatchet */
 local COMBI = {}
@@ -1509,7 +1509,7 @@ COMBI.Req["Wood"] = 5
 COMBI.Texture = "gms_icons/gms_weapon.png"
 COMBI.SwepClass = "gms_ironhatchet"
 
-GMS.RegisterCombi( COMBI, "gms_ironworkbench" )
+GMS.RegisterCombi(COMBI, "gms_ironworkbench")
 
 
 /*------------------------ Gun Lab ------------------------*/
@@ -1534,7 +1534,7 @@ COMBI.SkillReq["Hunting"] = 20
 COMBI.Texture = "gms_icons/weapon_smg1.png"
 COMBI.SwepClass = "weapon_smg1"
 
-GMS.RegisterCombi( COMBI, "gms_gunlab" )
+GMS.RegisterCombi(COMBI, "gms_gunlab")
 
 /* Pistol */
 local COMBI = {}
@@ -1556,7 +1556,7 @@ COMBI.SkillReq["Hunting"] = 10
 COMBI.Texture = "gms_icons/weapon_pistol.png"
 COMBI.SwepClass = "weapon_pistol"
 
-GMS.RegisterCombi( COMBI, "gms_gunlab" )
+GMS.RegisterCombi(COMBI, "gms_gunlab")
 
 /* Pistol ammo */
 local COMBI = {}
@@ -1575,7 +1575,7 @@ COMBI.SkillReq["Weapon_Crafting"] = 13
 COMBI.Texture = "gms_icons/item_ammo_pistol.png"
 COMBI.SwepClass = "item_ammo_pistol"
 
-GMS.RegisterCombi( COMBI, "gms_gunlab" )
+GMS.RegisterCombi(COMBI, "gms_gunlab")
 
 /* Smg ammo */
 local COMBI = {}
@@ -1594,7 +1594,7 @@ COMBI.SkillReq["Weapon_Crafting"] = 20
 COMBI.Texture = "gms_icons/item_ammo_smg1.png"
 COMBI.SwepClass = "item_ammo_smg1"
 
-GMS.RegisterCombi( COMBI, "gms_gunlab" )
+GMS.RegisterCombi(COMBI, "gms_gunlab")
 
 /*------------------------ Gun Chunks ------------------------*/
 
@@ -1614,7 +1614,7 @@ COMBI.SkillReq["Weapon_Crafting"] = 9
 COMBI.Results = {}
 COMBI.Results["Gunslide"] = 1
 
-GMS.RegisterCombi( COMBI, "gms_gunchunks" )
+GMS.RegisterCombi(COMBI, "gms_gunchunks")
 
 /* Gunbarrel */
 local COMBI = {}
@@ -1632,7 +1632,7 @@ COMBI.SkillReq["Weapon_Crafting"] = 11
 COMBI.Results = {}
 COMBI.Results["Gunbarrel"] = 1
 
-GMS.RegisterCombi( COMBI, "gms_gunchunks" )
+GMS.RegisterCombi(COMBI, "gms_gunchunks")
 
 /* Gungrip */
 local COMBI = {}
@@ -1650,7 +1650,7 @@ COMBI.SkillReq["Weapon_Crafting"] = 7
 COMBI.Results = {}
 COMBI.Results["Gungrip"] = 1
 
-GMS.RegisterCombi( COMBI, "gms_gunchunks" )
+GMS.RegisterCombi(COMBI, "gms_gunchunks")
 
 /* Gunmagazine */
 local COMBI = {}
@@ -1669,7 +1669,7 @@ COMBI.SkillReq["Weapon_Crafting"] = 13
 COMBI.Results = {}
 COMBI.Results["Gunmagazine"] = 1
 
-GMS.RegisterCombi( COMBI, "gms_gunchunks" )
+GMS.RegisterCombi(COMBI, "gms_gunchunks")
 
 /* Saltpetre */
 local COMBI = {}
@@ -1684,7 +1684,7 @@ COMBI.Req["Urine_Bottles"] = 1
 COMBI.Results = {}
 COMBI.Results["Saltpetre"] = 1
 
-GMS.RegisterCombi( COMBI, "gms_gunchunks" )
+GMS.RegisterCombi(COMBI, "gms_gunchunks")
 
 /* Saltpetre x10 */
 local COMBI = {}
@@ -1699,7 +1699,7 @@ COMBI.Req["Urine_Bottles"] = 10
 COMBI.Results = {}
 COMBI.Results["Saltpetre"] = 10
 
-GMS.RegisterCombi( COMBI, "gms_gunchunks" )
+GMS.RegisterCombi(COMBI, "gms_gunchunks")
 
 /* Gunpowder */
 local COMBI = {}
@@ -1716,7 +1716,7 @@ COMBI.Req["Saltpetre"] = 10
 COMBI.Results = {}
 COMBI.Results["Gunpowder"] = 10
 
-GMS.RegisterCombi( COMBI, "gms_gunchunks" )
+GMS.RegisterCombi(COMBI, "gms_gunchunks")
 
 /* ------------------------------------------------------------------------
 	Tech workbench
@@ -1734,7 +1734,7 @@ COMBI.Req["Iron"] = 3
 COMBI.Results = {}
 COMBI.Results["Batteries"] = 1
 
-GMS.RegisterCombi( COMBI, "gms_techworkbench" )
+GMS.RegisterCombi(COMBI, "gms_techworkbench")
 
 ------------------------------------------------------------------------
 
@@ -1756,7 +1756,7 @@ COMBI.SkillReq["Weapon_Crafting"] = 10
 COMBI.Texture = "gms_icons/gms_weapon.png"
 COMBI.SwepClass = "gmod_tool"
 
-GMS.RegisterCombi( COMBI, "gms_techworkbench" )
+GMS.RegisterCombi(COMBI, "gms_techworkbench")
 
 ------------------------------------------------------------------------
 
@@ -1773,7 +1773,7 @@ COMBI.Req["Batteries"] = 3
 COMBI.Results = {}
 COMBI.Results["Flashlight"] = 1
 
-GMS.RegisterCombi( COMBI, "gms_techworkbench" )
+GMS.RegisterCombi(COMBI, "gms_techworkbench")
 
 ------------------------------------------------------------------------
 
@@ -1794,7 +1794,7 @@ COMBI.SkillReq["Hunting"] = 5
 COMBI.Texture = "gms_icons/gms_weapon.png"
 COMBI.SwepClass = "weapon_stunstick"
 
-GMS.RegisterCombi( COMBI, "gms_techworkbench" )
+GMS.RegisterCombi(COMBI, "gms_techworkbench")
 
 ------------------------------------------------------------------------
 
@@ -1812,4 +1812,4 @@ COMBI.Req["Iron"] = 5
 COMBI.Req["Glass"] = 5
 COMBI.Req["Batteries"] = 2
 
-GMS.RegisterCombi( COMBI, "gms_techworkbench" )
+GMS.RegisterCombi(COMBI, "gms_techworkbench")

@@ -10,67 +10,67 @@
 	Если ты собираешься тут что либо изменять - НЕ ДЕЛАЙ ЭТОГО. Прочти файл customcontent.lua!
 */
 
-DeriveGamemode( "sandbox" )
+DeriveGamemode("sandbox")
 
 GM.Name = "Garry's Mod Stranded"
 GM.Author = "Stranded Team"
 GM.Email = "robotboy655@gmail.com"
 GM.Website = ""
 
-team.SetUp( 1, "The Stranded", Color( 200, 200, 0, 255 ) )
-team.SetUp( 2, "Survivalists", Color( 255, 255, 255, 255 ) )
-team.SetUp( 3, "Anonymous", Color( 0, 121, 145, 255 ) )
-team.SetUp( 4, "The Gummies", Color( 255, 23, 0, 255 ) )
-team.SetUp( 5, "The Dynamics", Color( 0, 72, 255, 255 ) )
-team.SetUp( 6, "Scavengers", Color( 8, 255, 0, 255 ) )
+team.SetUp(1, "The Stranded", Color(200, 200, 0, 255))
+team.SetUp(2, "Survivalists", Color(255, 255, 255, 255))
+team.SetUp(3, "Anonymous", Color(0, 121, 145, 255))
+team.SetUp(4, "The Gummies", Color(255, 23, 0, 255))
+team.SetUp(5, "The Dynamics", Color(0, 72, 255, 255))
+team.SetUp(6, "Scavengers", Color(8, 255, 0, 255))
 
 GMS = GMS or {}
 
-include( "spp/sh_spp.lua" )
-include( "time_weather.lua" )
+include("spp/sh_spp.lua")
+include("time_weather.lua")
 
 -- Shared includes
-include( "unlocks.lua" )
-include( "combinations.lua" )
+include("unlocks.lua")
+include("combinations.lua")
 
 /* ----------------------------------------------------------------------------------------------------
 	Utility functions
 ---------------------------------------------------------------------------------------------------- */
 
-function string.Capitalize( str )
-	local str = string.Explode( "_", str )
-	for k, v in pairs( str ) do
-		str[ k ] = string.upper( string.sub( v, 1, 1 ) ) .. string.sub( v, 2 )
+function string.Capitalize(str)
+	local str = string.Explode("_", str)
+	for k, v in pairs(str) do
+		str[k] = string.upper(string.sub(v, 1, 1)) .. string.sub(v, 2)
 	end
 
-	str = string.Implode( "_", str )
+	str = string.Implode("_", str)
 	return str
 end
 
-function player.FindByName( str )
-	if ( str == nil or str == "" ) then return false end
-	for id, ply in pairs( player.GetAll() ) do
-		if ( string.find( string.lower( ply:Name() ), string.lower( str ) ) != nil ) then
+function player.FindByName(str)
+	if (str == nil or str == "") then return false end
+	for id, ply in pairs(player.GetAll()) do
+		if (string.find(string.lower(ply:Name()), string.lower(str)) != nil) then
 			return ply
 		end
 	end
 	return false
 end
 
-function GMS_IsAdminOnlyModel( mdl )
-	if ( mdl == GMS.SmallRockModel ) then return true end
-	if ( table.HasValue( GMS.EdibleModels, mdl ) ) then return true end
-	if ( table.HasValue( GMS.RockModels, mdl ) ) then return true end
-	if ( table.HasValue( GMS.AdditionalRockModels, mdl ) ) then return true end
-	if ( table.HasValue( GMS.TreeModels, mdl ) ) then return true end
-	if ( table.HasValue( GMS.AdditionalTreeModels, mdl ) ) then return true end
+function GMS_IsAdminOnlyModel(mdl)
+	if (mdl == GMS.SmallRockModel) then return true end
+	if (table.HasValue(GMS.EdibleModels, mdl)) then return true end
+	if (table.HasValue(GMS.RockModels, mdl)) then return true end
+	if (table.HasValue(GMS.AdditionalRockModels, mdl)) then return true end
+	if (table.HasValue(GMS.TreeModels, mdl)) then return true end
+	if (table.HasValue(GMS.AdditionalTreeModels, mdl)) then return true end
 	return false
 end
 
-function GMS.ClassIsNearby( pos, class, range )
+function GMS.ClassIsNearby(pos, class, range)
 	local nearby = false
-	for k, v in pairs( ents.FindInSphere( pos, range ) ) do
-		if ( v:GetClass() == class and ( pos - Vector( v:LocalToWorld( v:OBBCenter() ).x, v:LocalToWorld( v:OBBCenter() ).y, pos.z ) ):Length() <= range ) then
+	for k, v in pairs(ents.FindInSphere(pos, range)) do
+		if (v:GetClass() == class and (pos - Vector(v:LocalToWorld(v:OBBCenter()).x, v:LocalToWorld(v:OBBCenter()).y, pos.z)):Length() <= range) then
 			nearby = true
 		end
 	end
@@ -78,13 +78,13 @@ function GMS.ClassIsNearby( pos, class, range )
 	return nearby
 end
 
-function GMS.IsInWater( pos )
+function GMS.IsInWater(pos)
 	local trace = {}
 	trace.start = pos
-	trace.endpos = pos + Vector( 0, 0, 1 )
-	trace.mask = bit.bor( MASK_WATER, MASK_SOLID )
+	trace.endpos = pos + Vector(0, 0, 1)
+	trace.mask = bit.bor(MASK_WATER, MASK_SOLID)
 
-	local tr = util.TraceLine( trace )
+	local tr = util.TraceLine(trace)
 	return tr.Hit
 end
 
@@ -92,10 +92,10 @@ end
 	Player Functions
 ---------------------------------------------------------------------------------------------------- */
 
-local PlayerMeta = FindMetaTable( "Player" )
+local PlayerMeta = FindMetaTable("Player")
 
 function PlayerMeta:IsDeveloper()
-	if ( self:SteamID() == "STEAM_0:0:18313012" ) then return true end
+	if (self:SteamID() == "STEAM_0:0:18313012") then return true end
 	return false
 end
 
@@ -103,69 +103,69 @@ end
 	Entity Functions
 ---------------------------------------------------------------------------------------------------- */
 
-local EntityMeta = FindMetaTable( "Entity" )
+local EntityMeta = FindMetaTable("Entity")
 
 function EntityMeta:IsTreeModel()
-	if ( !IsValid( self ) || !self.GetModel || !self:GetModel() ) then return false end
+	if (!IsValid(self) || !self.GetModel || !self:GetModel()) then return false end
 
-	for k, v in pairs( GMS.TreeModels ) do
-		if ( string.lower( v ) == string.lower( self:GetModel() ) or string.gsub( string.lower( v ), "/", "\\" ) == string.lower( self:GetModel() ) ) then return true end
+	for k, v in pairs(GMS.TreeModels) do
+		if (string.lower(v) == string.lower(self:GetModel()) or string.gsub(string.lower(v), "/", "\\") == string.lower(self:GetModel())) then return true end
 	end
 
-	for k, v in pairs( GMS.AdditionalTreeModels ) do
-		if ( string.lower( v ) == string.lower( self:GetModel() ) or string.gsub( string.lower( v ), "/", "\\" ) == string.lower( self:GetModel() ) ) then return true end
+	for k, v in pairs(GMS.AdditionalTreeModels) do
+		if (string.lower(v) == string.lower(self:GetModel()) or string.gsub(string.lower(v), "/", "\\") == string.lower(self:GetModel())) then return true end
 	end
 
 	-- Experemental
-	if ( SERVER && string.find( self:GetModel(), "tree" ) && self:CreatedByMap() ) then return true end 
+	if (SERVER && string.find(self:GetModel(), "tree") && self:CreatedByMap()) then return true end 
 
 	return false
 end
 
 function EntityMeta:IsRockModel()
-	if ( !IsValid( self ) ) then return false end
+	if (!IsValid(self)) then return false end
 
-	local mdl = string.lower( self:GetModel() )
+	local mdl = string.lower(self:GetModel())
 
-	if ( mdl == string.lower( GMS.SmallRockModel ) ) then return true end
+	if (mdl == string.lower(GMS.SmallRockModel)) then return true end
 
-	for k, v in pairs( GMS.RockModels ) do
-		if ( string.lower( v ) == mdl or string.gsub( string.lower( v ), "/", "\\" ) == mdl ) then return true end
+	for k, v in pairs(GMS.RockModels) do
+		if (string.lower(v) == mdl or string.gsub(string.lower(v), "/", "\\") == mdl) then return true end
 	end
 
-	for k, v in pairs( GMS.AdditionalRockModels ) do
-		if ( string.lower( v ) == mdl or string.gsub( string.lower( v ), "/", "\\" ) == mdl ) then return true end
+	for k, v in pairs(GMS.AdditionalRockModels) do
+		if (string.lower(v) == mdl or string.gsub(string.lower(v), "/", "\\") == mdl) then return true end
 	end
 	
 	-- Experemental
-	if ( SERVER && string.find( self:GetModel(), "rock" ) && self:CreatedByMap() ) then return true end 
+	if (SERVER && string.find(self:GetModel(), "rock") && self:CreatedByMap()) then return true end 
 
 	return false
 end
 
 function EntityMeta:IsBerryBushModel()
-	if ( !IsValid( self ) ) then return false end
+	if (!IsValid(self)) then return false end
 
 	local mdl = "models/props/pi_shrub.mdl"
-	if ( mdl == self:GetModel() or string.gsub( mdl, "/", "\\" ) == self:GetModel() ) then return true end
+	if (mdl == self:GetModel() or string.gsub(mdl, "/", "\\") == self:GetModel()) then return true end
 
 	return false
 end
 
 function EntityMeta:IsGrainModel()
-	if ( !IsValid( self ) ) then return false end
+	if (!IsValid(self)) then return false end
 
 	local mdl = "models/props_foliage/cattails.mdl"
-	if ( mdl == self:GetModel() or string.gsub( mdl, "/", "\\" ) == self:GetModel() ) then return true end
+	if (mdl == self:GetModel() or string.gsub(mdl, "/", "\\") == self:GetModel()) then return true end
 
 	return false
 end
 
 function EntityMeta:IsFoodModel()
-	if ( !IsValid( self ) ) then return false end
+	if (!IsValid(self)) then return false end
 
-	for k, v in pairs( GMS.EdibleModels ) do
-		if ( string.lower( v ) == string.lower( self:GetModel() ) or string.gsub( string.lower( v ), "/", "\\" ) == string.lower( self:GetModel() ) ) then
+	for k, v in pairs(GMS.EdibleModels) do
+		if (string.lower(v) == string.lower(self:GetModel()) or string.gsub(string.lower(v), "/", "\\") == string.lower(self:GetModel())) then
 			return true
 		end
 	end
@@ -174,23 +174,23 @@ function EntityMeta:IsFoodModel()
 end
 
 function EntityMeta:IsProp()
-	if ( !IsValid( self ) ) then return false end
+	if (!IsValid(self)) then return false end
 
 	local cls = self:GetClass()
-	if ( cls == "prop_physics" or cls == "prop_physics_multiplayer" or cls == "prop_dynamic" ) then return true end
+	if (cls == "prop_physics" or cls == "prop_physics_multiplayer" or cls == "prop_dynamic") then return true end
 
 	return false
 end
 
 function EntityMeta:GetVolume()
 	local min, max = self:OBBMins(), self:OBBMaxs()
-	local vol = math.abs( max.x - min.x ) * math.abs( max.y - min.y ) * math.abs( max.z - min.z )
-	return vol / ( 16 ^ 3 )
+	local vol = math.abs(max.x - min.x) * math.abs(max.y - min.y) * math.abs(max.z - min.z)
+	return vol / (16 ^ 3)
 end
 
 function EntityMeta:IsSleepingFurniture()
-	for _, v in ipairs( GMS.SleepingFurniture ) do
-		if ( string.lower( v ) == self:GetModel() or string.gsub( string.lower( v ), "/", "\\" ) == self:GetModel() ) then
+	for _, v in ipairs(GMS.SleepingFurniture) do
+		if (string.lower(v) == self:GetModel() or string.gsub(string.lower(v), "/", "\\") == self:GetModel()) then
 			return true
 		end
 	end
@@ -199,67 +199,67 @@ function EntityMeta:IsSleepingFurniture()
 end
 
 function EntityMeta:IsPickupProhibitedModel()
-	if ( !IsValid( self ) ) then return end
-	return table.HasValue( GMS.PickupProhibitedClasses, self:GetClass() )
+	if (!IsValid(self)) then return end
+	return table.HasValue(GMS.PickupProhibitedClasses, self:GetClass())
 end
 
 /* ----------------------------------------------------------------------------------------------------
-	Shared Hooks ( for prediction )
+	Shared Hooks (for prediction)
 ---------------------------------------------------------------------------------------------------- */
 
-function GM:PlayerNoClip( pl, on )
-	if ( pl:InVehicle() ) then return false end
-	if ( pl:IsDeveloper() || game.SinglePlayer() ) then return true end
+function GM:PlayerNoClip(pl, on)
+	if (pl:InVehicle()) then return false end
+	if (pl:IsDeveloper() || game.SinglePlayer()) then return true end
 	return false
 end
 
-function GM:PhysgunPickup( ply, ent )
-	if ( !IsValid( ent ) ) then return self.BaseClass.PhysgunPickup( self, ply, ent ) end 
-	if ( ent:IsRockModel() || ent:IsNPC() || ent:IsTreeModel() || ent:IsPlayer() || ent:IsFoodModel() || ent:IsPickupProhibitedModel() ) then return false end
+function GM:PhysgunPickup(ply, ent)
+	if (!IsValid(ent)) then return self.BaseClass.PhysgunPickup(self, ply, ent) end 
+	if (ent:IsRockModel() || ent:IsNPC() || ent:IsTreeModel() || ent:IsPlayer() || ent:IsFoodModel() || ent:IsPickupProhibitedModel()) then return false end
 	
-	if ( !SPropProtection.PhysGravGunPickup( ply, ent ) ) then return false end
+	if (!SPropProtection.PhysGravGunPickup(ply, ent)) then return false end
 	
-	return self.BaseClass.PhysgunPickup( self, ply, ent )
+	return self.BaseClass.PhysgunPickup(self, ply, ent)
 end
 
-function GM:GravGunPunt( ply, ent )
-	if ( !IsValid( ent ) ) then return self.BaseClass.GravGunPunt( self, ply, ent ) end 
-	if ( ent:IsRockModel() || ent:IsNPC() || ent:IsTreeModel() || ent:IsPlayer() || ent:IsFoodModel() || ent:IsPickupProhibitedModel() || ent:GetClass() == "gms_buildsite" ) then return false end
+function GM:GravGunPunt(ply, ent)
+	if (!IsValid(ent)) then return self.BaseClass.GravGunPunt(self, ply, ent) end 
+	if (ent:IsRockModel() || ent:IsNPC() || ent:IsTreeModel() || ent:IsPlayer() || ent:IsFoodModel() || ent:IsPickupProhibitedModel() || ent:GetClass() == "gms_buildsite") then return false end
 	
-	if ( !SPropProtection.PhysGravGunPickup( ply, ent ) ) then return false end
+	if (!SPropProtection.PhysGravGunPickup(ply, ent)) then return false end
 	
-	return self.BaseClass.GravGunPunt( self, ply, ent )
+	return self.BaseClass.GravGunPunt(self, ply, ent)
 end
 
-function GM:GravGunPickupAllowed( ply, ent )
-	if ( !IsValid( ent ) ) then return self.BaseClass.GravGunPickupAllowed( self, ply, ent ) end 
-	if ( ent:IsRockModel() || ent:IsNPC() || ent:IsTreeModel() || ent:IsPlayer() || ent:IsFoodModel() || ent:IsPickupProhibitedModel() || ent:GetClass() == "gms_buildsite" ) then return false end
+function GM:GravGunPickupAllowed(ply, ent)
+	if (!IsValid(ent)) then return self.BaseClass.GravGunPickupAllowed(self, ply, ent) end 
+	if (ent:IsRockModel() || ent:IsNPC() || ent:IsTreeModel() || ent:IsPlayer() || ent:IsFoodModel() || ent:IsPickupProhibitedModel() || ent:GetClass() == "gms_buildsite") then return false end
 	
-	if ( !SPropProtection.PhysGravGunPickup( ply, ent ) ) then return false end
+	if (!SPropProtection.PhysGravGunPickup(ply, ent)) then return false end
 	
-	return self.BaseClass.GravGunPickupAllowed( self, ply, ent )
+	return self.BaseClass.GravGunPickupAllowed(self, ply, ent)
 end
 
-function GM:CanTool( ply, tr, mode )
+function GM:CanTool(ply, tr, mode)
 
-	if ( mode == "gms_rope" ) then
-		if ( SERVER && ply:GetResource( "Rope" ) < 1 ) then ply:SendMessage( "You need rope to use this tool.", 3, Color( 200, 0, 0, 255 ) ) return false end
-		if ( CLIENT && ( !Resources[ "Rope" ] || Resources[ "Rope" ] < 1 ) ) then return false end
+	if (mode == "gms_rope") then
+		if (SERVER && ply:GetResource("Rope") < 1) then ply:SendMessage("You need rope to use this tool.", 3, Color(200, 0, 0, 255)) return false end
+		if (CLIENT && (!Resources["Rope"] || Resources["Rope"] < 1)) then return false end
 	end
 
-	if ( mode == "weld" ) then
-		if ( SERVER && ply:GetResource( "Welder" ) < 1 ) then ply:SendMessage( "You need a Welder to use this tool.", 3, Color( 200, 0, 0, 255 ) ) return false end
-		if ( CLIENT && ( !Resources[ "Welder" ] || Resources[ "Welder" ] < 1 ) ) then return false end
+	if (mode == "weld") then
+		if (SERVER && ply:GetResource("Welder") < 1) then ply:SendMessage("You need a Welder to use this tool.", 3, Color(200, 0, 0, 255)) return false end
+		if (CLIENT && (!Resources["Welder"] || Resources["Welder"] < 1)) then return false end
 	end
 
-	if ( table.HasValue( GMS.ProhibitedStools, mode ) && !ply:IsAdmin() ) then ply:SendMessage( "This tool is prohibited.", 3, Color( 200, 0, 0, 255 ) ) return false end
+	if (table.HasValue(GMS.ProhibitedStools, mode) && !ply:IsAdmin()) then ply:SendMessage("This tool is prohibited.", 3, Color(200, 0, 0, 255)) return false end
 
 	local ent = tr.Entity
-	if ( !IsValid( ent ) && ent:GetClass() != "worldspawn" ) then return end 
+	if (!IsValid(ent) && ent:GetClass() != "worldspawn") then return end 
 	
-	if ( !SPropProtection.PhysGravGunPickup( ply, ent ) ) then return false end
+	if (!SPropProtection.PhysGravGunPickup(ply, ent)) then return false end
 
-	if ( ent:IsRockModel() || ent:IsNPC() || ent:IsTreeModel() || ent:IsPlayer() || ent:IsFoodModel() || ent:IsPickupProhibitedModel() || ent:GetClass() == "gms_buildsite" ) then return false end
+	if (ent:IsRockModel() || ent:IsNPC() || ent:IsTreeModel() || ent:IsPlayer() || ent:IsFoodModel() || ent:IsPickupProhibitedModel() || ent:GetClass() == "gms_buildsite") then return false end
 
 	return true
 end
@@ -270,7 +270,7 @@ end
 
 GMS_SpawnLists = GMS_SpawnLists or {}
 
-GMS_SpawnLists[ "Wood - Tables / Desks" ] = {
+GMS_SpawnLists["Wood - Tables / Desks"] = {
 	"models/props_c17/FurnitureDrawer003a.mdl",
 	"models/props_c17/FurnitureDrawer002a.mdl",
 	"models/props_c17/FurnitureTable003a.mdl",
@@ -282,7 +282,7 @@ GMS_SpawnLists[ "Wood - Tables / Desks" ] = {
 	"models/props_wasteland/cafeteria_table001a.mdl"
 }
 
-GMS_SpawnLists[ "Wood - Shelving / Storage" ] = {
+GMS_SpawnLists["Wood - Shelving / Storage"] = {
 	"models/props_c17/FurnitureShelf001b.mdl",
 	"models/props_wasteland/prison_shelf002a.mdl",
 	"models/props_junk/wood_crate001a.mdl",
@@ -295,7 +295,7 @@ GMS_SpawnLists[ "Wood - Shelving / Storage" ] = {
 	"models/props_c17/FurnitureDresser001a.mdl"
 }
 
-GMS_SpawnLists[ "Wood - Seating" ] = {
+GMS_SpawnLists["Wood - Seating"] = {
 	"models/props_c17/FurnitureChair001a.mdl",
 	"models/props_interiors/Furniture_chair01a.mdl",
 	"models/props_c17/playground_swingset_seat01a.mdl",
@@ -306,7 +306,7 @@ GMS_SpawnLists[ "Wood - Seating" ] = {
 	"models/props_trainstation/bench_indoor001a.mdl"
 }
 
-GMS_SpawnLists[ "Wood - Doors / Plating / Beams" ] = {
+GMS_SpawnLists["Wood - Doors / Plating / Beams"] = {
 	"models/props_debris/wood_board02a.mdl",
 	"models/props_debris/wood_board04a.mdl",
 	"models/props_debris/wood_board06a.mdl",
@@ -332,7 +332,7 @@ GMS_SpawnLists[ "Wood - Doors / Plating / Beams" ] = {
 	"models/props_docks/dock03_pole01a.mdl"
 }
 
-GMS_SpawnLists[ "Iron - Kitchen/Appliances" ] = {
+GMS_SpawnLists["Iron - Kitchen/Appliances"] = {
 	"models/props_interiors/SinkKitchen01a.mdl",
 	"models/props_interiors/Radiator01a.mdl",
 	"models/props_c17/FurnitureWashingmachine001a.mdl",
@@ -355,7 +355,7 @@ GMS_SpawnLists[ "Iron - Kitchen/Appliances" ] = {
 	"models/props_wasteland/laundry_basket002.mdl"
 }
 
-GMS_SpawnLists[ "Iron - Shelving/Storage" ] = {
+GMS_SpawnLists["Iron - Shelving/Storage"] = {
 	"models/props_c17/FurnitureShelf002a.mdl",
 	"models/props_lab/filecabinet02.mdl",
 	"models/props_wasteland/controlroom_filecabinet002a.mdl",
@@ -365,7 +365,7 @@ GMS_SpawnLists[ "Iron - Shelving/Storage" ] = {
 	"models/props_c17/display_cooler01a.mdl"
 }
 
-/*GMS_SpawnLists[ "Iron - Cargo/Tanks" ] = {
+/*GMS_SpawnLists["Iron - Cargo/Tanks"] = {
 	"models/props_wasteland/cargo_container01.mdl",
 	"models/props_wasteland/cargo_container01b.mdl",
 	"models/props_wasteland/cargo_container01c.mdl",
@@ -376,7 +376,7 @@ GMS_SpawnLists[ "Iron - Shelving/Storage" ] = {
 	"models/props_junk/TrashDumpster02.mdl"
 }
 
-GMS_SpawnLists[ "Iron - Lighting" ] = {
+GMS_SpawnLists["Iron - Lighting"] = {
 	"models/props_c17/light_cagelight02_on.mdl",
 	"models/props_c17/light_cagelight01_on.mdl",
 	"models/props_wasteland/prison_lamp001c.mdl",
@@ -402,7 +402,7 @@ GMS_SpawnLists[ "Iron - Lighting" ] = {
 	"models/props_trainstation/light_Signal001b.mdl"
 }*/
 
-GMS_SpawnLists[ "Iron - Containers" ] = {
+GMS_SpawnLists["Iron - Containers"] = {
 	"models/props_junk/garbage_metalcan001a.mdl",
 	"models/props_junk/garbage_metalcan002a.mdl",
 	"models/props_junk/PopCan01a.mdl",
@@ -422,7 +422,7 @@ GMS_SpawnLists[ "Iron - Containers" ] = {
 	"models/props_c17/canister_propane01a.mdl"
 }
 
-GMS_SpawnLists[ "Iron - Signs" ] = {
+GMS_SpawnLists["Iron - Signs"] = {
 	"models/props_c17/streetsign005d.mdl",
 	"models/props_c17/streetsign005c.mdl",
 	"models/props_c17/streetsign005b.mdl",
@@ -436,7 +436,7 @@ GMS_SpawnLists[ "Iron - Signs" ] = {
 	"models/props_trainstation/trainstation_clock001.mdl"
 }
 
-GMS_SpawnLists[ "Copper - Signs" ] = {
+GMS_SpawnLists["Copper - Signs"] = {
 	"models/props_trainstation/TrackSign02.mdl",
 	"models/props_trainstation/TrackSign03.mdl",
 	"models/props_trainstation/TrackSign10.mdl",
@@ -445,7 +445,7 @@ GMS_SpawnLists[ "Copper - Signs" ] = {
 	"models/props_trainstation/TrackSign07.mdl"
 }
 
-GMS_SpawnLists[ "Iron - Rails" ] = {
+GMS_SpawnLists["Iron - Rails"] = {
 	"models/props_trainstation/handrail_64decoration001a.mdl",
 	"models/props_c17/Handrail04_short.mdl",
 	"models/props_c17/Handrail04_Medium.mdl",
@@ -455,7 +455,7 @@ GMS_SpawnLists[ "Iron - Rails" ] = {
 	"models/props_c17/Handrail04_DoubleRise.mdl"
 }
 
-GMS_SpawnLists[ "Copper - Fencing" ] = {
+GMS_SpawnLists["Copper - Fencing"] = {
 	"models/props_wasteland/interior_fence002a.mdl",
 	"models/props_wasteland/interior_fence002e.mdl",
 	"models/props_wasteland/interior_fence001g.mdl",
@@ -473,7 +473,7 @@ GMS_SpawnLists[ "Copper - Fencing" ] = {
 	"models/props_wasteland/exterior_fence002e.mdl"
 }
 
-GMS_SpawnLists[ "Iron - Doors/Plating/Beams" ] = {
+GMS_SpawnLists["Iron - Doors/Plating/Beams"] = {
 	"models/props_c17/door02_double.mdl",
 	"models/props_c17/door01_left.mdl",
 	"models/props_borealis/borealis_door001a.mdl",
@@ -500,7 +500,7 @@ GMS_SpawnLists[ "Iron - Doors/Plating/Beams" ] = {
 	"models/props_junk/iBeam01a_cluster01.mdl"
 }
 
-GMS_SpawnLists[ "Iron - Vehicles" ] = {
+GMS_SpawnLists["Iron - Vehicles"] = {
 	"models/props_junk/Wheebarrow01a.mdl",
 	"models/props_junk/PushCart01a.mdl",
 	"models/props_wasteland/gaspump001a.mdl",
@@ -539,7 +539,7 @@ GMS_SpawnLists[ "Iron - Vehicles" ] = {
 	"models/props_trainstation/train005.mdl"
 }
 
-GMS_SpawnLists[ "Iron - Seating" ] = {
+GMS_SpawnLists["Iron - Seating"] = {
 	"models/props_c17/chair_stool01a.mdl",
 	"models/props_c17/chair02a.mdl",
 	"models/props_c17/chair_office01a.mdl",
@@ -552,7 +552,7 @@ GMS_SpawnLists[ "Iron - Seating" ] = {
 	"models/props_interiors/BathTub01a.mdl"
 }
 
-GMS_SpawnLists[ "Iron - Misc/Buttons" ] = {
+GMS_SpawnLists["Iron - Misc/Buttons"] = {
 	"models/props_c17/TrapPropeller_Lever.mdl",
 	"models/props_c17/TrapPropeller_Engine.mdl",
 	"models/props_c17/TrapPropeller_Blade.mdl",
@@ -570,7 +570,7 @@ GMS_SpawnLists[ "Iron - Misc/Buttons" ] = {
 	"models/props_c17/cashregister01a.mdl"
 }
 
-GMS_SpawnLists[ "Wood - PHX" ] = {
+GMS_SpawnLists["Wood - PHX"] = {
 	"models/props_phx/construct/wood/wood_boardx1.mdl",
 	"models/props_phx/construct/wood/wood_boardx2.mdl",
 	"models/props_phx/construct/wood/wood_boardx4.mdl",
@@ -591,7 +591,7 @@ GMS_SpawnLists[ "Wood - PHX" ] = {
 	"models/props_phx/construct/wood/wood_wire2x2x2b.mdl"
 }
 
-GMS_SpawnLists[ "Iron - PHX" ] = {
+GMS_SpawnLists["Iron - PHX"] = {
 	"models/props_phx/construct/metal_plate1.mdl",
 	"models/props_phx/construct/metal_plate1x2.mdl",
 	"models/props_phx/construct/metal_plate2x2.mdl",
@@ -617,7 +617,7 @@ GMS.SleepingFurniture = {
 	"models/props_wasteland/prison_bedframe001b.mdl",
 	"models/props_trainstation/traincar_seats001.mdl"
 }
-GMS_SpawnLists[ "Mixed - Sleeping Furniture" ] = GMS.SleepingFurniture
+GMS_SpawnLists["Mixed - Sleeping Furniture"] = GMS.SleepingFurniture
 
 GMS.TreeModels = {
 	"models/props_foliage/oak_tree01.mdl",
@@ -750,24 +750,24 @@ GMS.AdditionalRockModels = {
 GMS.SmallRockModel = "models/props_junk/rock001a.mdl"
 
 GMS.MaterialResources = {}
-GMS.MaterialResources[ MAT_CONCRETE ] = "Concrete"
-GMS.MaterialResources[ MAT_METAL ] = "Iron"
-GMS.MaterialResources[ MAT_DIRT ] = "Wood"
-GMS.MaterialResources[ MAT_VENT ] = "Copper"
-GMS.MaterialResources[ MAT_GRATE ] = "Copper"
-GMS.MaterialResources[ MAT_TILE ] = "Stone"
-GMS.MaterialResources[ MAT_SLOSH ] = "Wood"
-GMS.MaterialResources[ MAT_WOOD ] = "Wood"
-GMS.MaterialResources[ MAT_COMPUTER ] = "Copper"
-GMS.MaterialResources[ MAT_GLASS ] = "Glass"
-GMS.MaterialResources[ MAT_FLESH ] = "Wood"
-GMS.MaterialResources[ MAT_BLOODYFLESH ] = "Wood"
-GMS.MaterialResources[ MAT_CLIP ] = "Wood"
-GMS.MaterialResources[ MAT_ANTLION ] = "Wood"
-GMS.MaterialResources[ MAT_ALIENFLESH ] = "Wood"
-GMS.MaterialResources[ MAT_FOLIAGE ] = "Wood"
-GMS.MaterialResources[ MAT_SAND ] = "Sand"
-GMS.MaterialResources[ MAT_PLASTIC ] = "Plastic"
+GMS.MaterialResources[MAT_CONCRETE] = "Concrete"
+GMS.MaterialResources[MAT_METAL] = "Iron"
+GMS.MaterialResources[MAT_DIRT] = "Wood"
+GMS.MaterialResources[MAT_VENT] = "Copper"
+GMS.MaterialResources[MAT_GRATE] = "Copper"
+GMS.MaterialResources[MAT_TILE] = "Stone"
+GMS.MaterialResources[MAT_SLOSH] = "Wood"
+GMS.MaterialResources[MAT_WOOD] = "Wood"
+GMS.MaterialResources[MAT_COMPUTER] = "Copper"
+GMS.MaterialResources[MAT_GLASS] = "Glass"
+GMS.MaterialResources[MAT_FLESH] = "Wood"
+GMS.MaterialResources[MAT_BLOODYFLESH] = "Wood"
+GMS.MaterialResources[MAT_CLIP] = "Wood"
+GMS.MaterialResources[MAT_ANTLION] = "Wood"
+GMS.MaterialResources[MAT_ALIENFLESH] = "Wood"
+GMS.MaterialResources[MAT_FOLIAGE] = "Wood"
+GMS.MaterialResources[MAT_SAND] = "Sand"
+GMS.MaterialResources[MAT_PLASTIC] = "Plastic"
 
 GMS.PickupProhibitedClasses = {
 	"gms_seed"
@@ -890,74 +890,74 @@ GMS.NonDropWeapons = {
 	Console Variables
 ------------------------------------------------ */
 
-if ( GMSCVars ) then return end -- Auto-Refresh protection
+if (GMSCVars) then return end -- Auto-Refresh protection
 
 GMSCVars = {}
 
-function CreateGMSCVar( name, def, flag )
-	if ( SERVER ) then
+function CreateGMSCVar(name, def, flag)
+	if (SERVER) then
 
-		table.insert( GMSCVars, "gms_" .. name )
-		CreateConVar( "gms_" .. name, def, flag )
+		table.insert(GMSCVars, "gms_" .. name)
+		CreateConVar("gms_" .. name, def, flag)
 
-		cvars.AddChangeCallback( "gms_" .. name, function( cvar, old, new )
+		cvars.AddChangeCallback("gms_" .. name, function(cvar, old, new)
 
-			if ( math.floor( old ) == math.floor( new ) ) then return end
-			for id, pl in pairs( player.GetAll() ) do pl:ConCommand( "gms_" .. name .. " " .. math.floor( new ) ) end
+			if (math.floor(old) == math.floor(new)) then return end
+			for id, pl in pairs(player.GetAll()) do pl:ConCommand("gms_" .. name .. " " .. math.floor(new)) end
 
-		end )
+		end)
 
 	else
 
-		CreateConVar( "gms_" .. name, def )
-		cvars.AddChangeCallback( "gms_" .. name, function( cvar, old, new )
+		CreateConVar("gms_" .. name, def)
+		cvars.AddChangeCallback("gms_" .. name, function(cvar, old, new)
 
-			if ( math.floor( old ) == math.floor( new ) ) then return end
-			timer.Destroy( "gms_update" .. name )
-			timer.Create( "gms_update" .. name, 2, 1, function() RunConsoleCommand( "gms_update", name, math.floor( new ) ) end )
+			if (math.floor(old) == math.floor(new)) then return end
+			timer.Destroy("gms_update" .. name)
+			timer.Create("gms_update" .. name, 2, 1, function() RunConsoleCommand("gms_update", name, math.floor(new)) end)
 
-		end )
+		end)
 
 	end
 end
 
-CreateGMSCVar( "FreeBuild", "0" )
-CreateGMSCVar( "FreeBuildSA", "0" )
-CreateGMSCVar( "AllTools", "0", FCVAR_ARCHIVE )
-CreateGMSCVar( "AutoSave", "1", FCVAR_ARCHIVE )
-CreateGMSCVar( "AutoSaveTime", "3", FCVAR_ARCHIVE )
-CreateGMSCVar( "ReproduceTrees", "3" )
-CreateGMSCVar( "MaxReproducedTrees", "50", FCVAR_ARCHIVE )
-CreateGMSCVar( "SpreadFire", "0" )
-CreateGMSCVar( "FadeRocks", "0" )
-//CreateGMSCVar( "CostsScale", "1" )
-//CreateGMSCVar( "alerts", "1" )
-CreateGMSCVar( "campfire", "1" )
-CreateGMSCVar( "PlantLimit", "25", FCVAR_ARCHIVE )
+CreateGMSCVar("FreeBuild", "0")
+CreateGMSCVar("FreeBuildSA", "0")
+CreateGMSCVar("AllTools", "0", FCVAR_ARCHIVE)
+CreateGMSCVar("AutoSave", "1", FCVAR_ARCHIVE)
+CreateGMSCVar("AutoSaveTime", "3", FCVAR_ARCHIVE)
+CreateGMSCVar("ReproduceTrees", "3")
+CreateGMSCVar("MaxReproducedTrees", "50", FCVAR_ARCHIVE)
+CreateGMSCVar("SpreadFire", "0")
+CreateGMSCVar("FadeRocks", "0")
+//CreateGMSCVar("CostsScale", "1")
+//CreateGMSCVar("alerts", "1")
+CreateGMSCVar("campfire", "1")
+CreateGMSCVar("PlantLimit", "25", FCVAR_ARCHIVE)
 
-CreateGMSCVar( "PVPDamage", "0", FCVAR_ARCHIVE )
-CreateGMSCVar( "TeamColors", "1", FCVAR_ARCHIVE )
+CreateGMSCVar("PVPDamage", "0", FCVAR_ARCHIVE)
+CreateGMSCVar("TeamColors", "1", FCVAR_ARCHIVE)
 
 -- Daynight
-CreateGMSCVar( "daynight", "1" )
-CreateGMSCVar( "night_cleanup", "1" )
-CreateGMSCVar( "zombies", "1" )
+CreateGMSCVar("daynight", "1")
+CreateGMSCVar("night_cleanup", "1")
+CreateGMSCVar("zombies", "1")
 
-if ( CLIENT ) then return end
+if (CLIENT) then return end
 
-concommand.Add( "gms_update", function( ply, cmd, args )
+concommand.Add("gms_update", function(ply, cmd, args)
 
-	if ( !ply:IsAdmin() ) then return end
+	if (!ply:IsAdmin()) then return end
 
-	local cmd = args[ 1 ]
-	local val = args[ 2 ]
+	local cmd = args[1]
+	local val = args[2]
 
-	if ( math.floor( GetConVarNumber( "gms_" .. cmd ) ) == math.floor( val ) ) then return end
+	if (math.floor(GetConVarNumber("gms_" .. cmd)) == math.floor(val)) then return end
 
-	RunConsoleCommand( "gms_" .. cmd, math.floor( val ) )
+	RunConsoleCommand("gms_" .. cmd, math.floor(val))
 
-end )
+end)
 
-hook.Add( "PlayerInitialSpawn", "gms.sync_cvars", function( ply )
-	for id, cvar in pairs( GMSCVars ) do ply:ConCommand( cvar .. " " .. math.floor( GetConVarNumber( cvar ) ) ) end
-end )
+hook.Add("PlayerInitialSpawn", "gms.sync_cvars", function(ply)
+	for id, cvar in pairs(GMSCVars) do ply:ConCommand(cvar .. " " .. math.floor(GetConVarNumber(cvar))) end
+end)
