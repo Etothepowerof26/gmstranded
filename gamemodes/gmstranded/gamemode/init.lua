@@ -2525,22 +2525,22 @@ end)
 concommand.Add("gms_admin_savemap", function(ply, cmd, args)
 	if (IsValid(ply) and !ply:IsAdmin()) then ply:SendMessage("You need admin rights for this!", 3, Color(200, 0, 0, 255)) return end
 	
-	local MapName = args[1] or "default"
-	GAMEMODE:PreSaveMap(string.Trim(args[1]))
+	local MapName = not args[1] and "default" or args[1]
+	GAMEMODE:PreSaveMap(string.Trim(MapName))
 end)
 
 concommand.Add("gms_admin_loadmap", function(ply, cmd, args)
 	if (IsValid(ply) and !ply:IsAdmin()) then ply:SendMessage("You need admin rights for this!", 3, Color(200, 0 ,0, 255)) return end
 	
-	local MapName = args[1] or "default"
-	GAMEMODE:PreLoadMap(string.Trim(args[1]))
+	local MapName = not args[1] and "default" or args[1]
+	GAMEMODE:PreLoadMap(string.Trim(MapName))
 end)
 
 concommand.Add("gms_admin_deletemap", function(ply, cmd, args)
 	if (IsValid(ply) and !ply:IsAdmin()) then ply:SendMessage("You need admin rights for this!", 3, Color(200, 0, 0, 255)) return end
 	
-	local MapName = args[1] or "default"
-	GAMEMODE:DeleteSavegame(string.Trim(args[1]))
+	local MapName = not args[1] and "default" or args[1]
+	GAMEMODE:DeleteSavegame(string.Trim(MapName))
 end)
 
 --Delete map
@@ -2686,8 +2686,8 @@ function GM:LoadMapEntity(savegame, max, k)
 	if (entry["PlantName"])       then ent:SetName(entry["PlantName"]) end
 	if (entry["material"] ~= "0") then ent:SetMaterial(entry["material"]) end
 	if (entry["solid"])           then ent:SetSolid(entry["solid"]) end
-	
-	for k, v in pairs(entry["keyvalues"]) do ent:SetKeyValue(k, v) end
+
+	for k, v in pairs(entry["keyvalues"]) do ent:SetKeyValue(k, tostring(v)) end
 	for k, v in pairs(entry["table"]) do ent[k] = v end
 
 	ent:Spawn()
@@ -2744,11 +2744,11 @@ function GM:LoadMapEntity(savegame, max, k)
 		for _, v in ipairs(table.Add(ents.FindByClass("gms_resourcepack"), ents.FindByClass("gms_fridge"))) do
 			for res, num in pairs(v.Resources) do
 				timer.Simple(time, function()
-					net.Start("gms_SetResPackInfo", rp)
+					net.Start("gms_SetResPackInfo")
 					net.WriteString(v:EntIndex())
 					net.WriteString(string.gsub(res, "_", " "))
 					net.WriteInt(num, 32)
-					net.Send(rp)
+					net.Broadcast()
 				end)
 				
 				time = time + 0.1
