@@ -811,18 +811,16 @@ GMS.FadingInProps = {}
 function EntityMeta:Fadeout(speed)
 	if (!IsValid(self)) then return end
 	local speed = speed or 1
-
-	for k, v in pairs(player.GetAll()) do
-		net.Start("gms_CreateFadingProp", v)
-			net.WriteString(self:GetModel())
-			net.WriteVector(self:GetPos())
-			local ang = self:GetAngles()
-			net.WriteVector(Vector(ang.p, ang.y, ang.r))
-			local col = self:GetColor()
-			net.WriteVector(Vector(col.r, col.g, col.b))
-			net.WriteInt(math.Round(speed), 32)
-		net.Send(self)
-	end
+	local col = self:GetColor()
+	local ang = self:GetAngles()
+	
+	net.Start("gms_CreateFadingProp", v)
+		net.WriteString(self:GetModel())
+		net.WriteVector(self:GetPos())
+		net.WriteVector(Vector(ang.p, ang.y, ang.r))
+		net.WriteVector(Vector(col.r, col.g, col.b))
+		net.WriteInt(math.Round(speed), 32)
+	net.Broadcast()
 
 	self:Remove()
 end
