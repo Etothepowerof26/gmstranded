@@ -35,6 +35,7 @@ util.AddNetworkString("gms_AddUnlock")
 util.AddNetworkString("gms_invite")
 util.AddNetworkString("gms_SetResPackInfo")
 util.AddNetworkString("gms_SetResourceDropInfo")
+util.AddNetworkString("gms_AddLoadGameToList")
 util.AddNetworkString("sendTribe")
 
 --Vars

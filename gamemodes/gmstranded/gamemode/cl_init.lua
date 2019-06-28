@@ -458,6 +458,83 @@ hook.Add("HUDPaint", "gms_drawachievementmessages", function()
 end)
 
 /* ----------------------------------------------------------------------------------------------------
+	Resource Drops and Packs
+---------------------------------------------------------------------------------------------------- */
+
+local PendingRDrops = PendingRDrops or {}
+local PendingRPDrops = PendingRPDrops or {}
+
+net.Receive("gms_SetResPackInfo", function()
+	local index = net.ReadString()
+	local type = net.ReadString()
+	local int = net.ReadInt(32)
+	local ent = ents.GetByIndex(index)
+
+	if (int <= 0) then int = nil end
+
+	if (ent == NULL or !ent) then
+		local tbl = {}
+		tbl.Type = type
+		tbl.Amount = int
+		tbl.Index = index
+		table.insert(PendingRPDrops, tbl)
+
+		//error("This happened: PendingRPDrops")
+	else
+		if (!ent.Resources) then ent.Resources = {} end
+		ent.Resources[type] = int
+		
+		if (IsValid(GAMEMODE.ResourcePackFrame)) then
+			GAMEMODE.ResourcePackFrame:Update()
+		end
+	end
+end)
+
+net.Receive("gms_SetResourceDropInfo", function()
+	local index = net.ReadString()
+	local type = net.ReadString()
+	local int = net.ReadInt(32)
+	local ent = ents.GetByIndex(index)
+
+	if (int <= 0) then int = nil end
+
+	if (ent == NULL or !ent) then
+		local tbl = {}
+		tbl.Type = type
+		tbl.Amount = int
+		tbl.Index = index
+		table.insert(PendingRDrops, tbl)
+	else
+		ent.Res = type
+		ent.Amount = int
+	end
+end)
+
+hook.Add("Think", "gms_CheckForPendingRDrops", function()
+	for k, tbl in pairs(PendingRDrops) do
+		local ent = ents.GetByIndex(tbl.Index)
+		if (ent != NULL) then
+			ent.Res = tbl.Type
+            ent.Amount = tbl.Amount
+			table.remove(PendingRDrops, k)
+		end
+	end
+	
+	for k, tbl in pairs(PendingRPDrops) do
+		local ent = ents.GetByIndex(tbl.Index)
+		if (IsValid(ent)) then
+			if (!ent.Resources) then ent.Resources = {} end
+			ent.Resources[tbl.Type] = tbl.Amount
+			table.remove(PendingRPDrops, k)
+
+			if (IsValid(GAMEMODE.ResourcePackFrame)) then
+				GAMEMODE.ResourcePackFrame:Update()
+			end
+		end
+	end
+end)
+
+/* ----------------------------------------------------------------------------------------------------
 	Needs
 ---------------------------------------------------------------------------------------------------- */
 

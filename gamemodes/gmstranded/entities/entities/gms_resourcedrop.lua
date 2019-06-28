@@ -9,44 +9,7 @@ ENT.Instructions = "Press use to pick up."
 
 ENT.Model = "models/items/item_item_crate.mdl"
 
-if ( CLIENT ) then
-
-local PendingRDrops = PendingRDrops or {}
-
-usermessage.Hook( "gms_SetResourceDropInfo", function( um )
-	local index = um:ReadString()
-	local type = um:ReadString()
-	local int = um:ReadShort()
-	local ent = ents.GetByIndex( index )
-
-	if ( int <= 0 ) then int = nil end
-
-	if ( ent == NULL or !ent ) then
-		local tbl = {}
-		tbl.Type = type
-		tbl.Amount = int
-		tbl.Index = index
-		table.insert( PendingRDrops, tbl )
-
-		//error("This happened: PendingRDrops")
-	else
-		ent.Res = type
-		ent.Amount = int
-	end
-end )
-
-hook.Add( "Think", "gms_CheckForPendingRDrops", function()
-	for k, tbl in pairs( PendingRDrops ) do
-		local ent = ents.GetByIndex( tbl.Index )
-		if ( ent != NULL ) then
-			ent.Res = tbl.Type
-            ent.Amount = tbl.Amount
-			table.remove( PendingRDrops, k )
-		end
-	end
-end )
-
-return end
+if CLIENT then return end
 
 function ENT:OnInitialize()
 	self.Type = "Resource"

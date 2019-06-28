@@ -13,52 +13,7 @@ function ENT:OnInitialize()
 	self.Resources = {}
 end
 
-if ( CLIENT ) then
-
-local PendingRPDrops = PendingRPDrops or {}
-
-usermessage.Hook( "gms_SetResPackInfo", function( um )
-	local index = um:ReadString()
-	local type = um:ReadString()
-	local int = um:ReadShort()
-	local ent = ents.GetByIndex( index )
-
-	if ( int <= 0 ) then int = nil end
-
-	if ( ent == NULL or !ent ) then
-		local tbl = {}
-		tbl.Type = type
-		tbl.Amount = int
-		tbl.Index = index
-		table.insert( PendingRPDrops, tbl )
-
-		//error("This happened: PendingRPDrops")
-	else
-		if ( !ent.Resources ) then ent.Resources = {} end
-		ent.Resources[ type ] = int
-		
-		if ( IsValid( GAMEMODE.ResourcePackFrame ) ) then
-			GAMEMODE.ResourcePackFrame:Update()
-		end
-	end
-end )
-
-hook.Add( "Think", "gms_CheckForPendingRPDrops", function()
-	for k, tbl in pairs( PendingRPDrops ) do
-		local ent = ents.GetByIndex( tbl.Index )
-		if ( IsValid( ent ) ) then
-			if ( !ent.Resources ) then ent.Resources = {} end
-			ent.Resources[ tbl.Type ] = tbl.Amount
-			table.remove( PendingRPDrops, k )
-
-			if ( IsValid( GAMEMODE.ResourcePackFrame ) ) then
-				GAMEMODE.ResourcePackFrame:Update()
-			end
-		end
-	end
-end )
-
-return end
+if CLIENT then return end
 
 function ENT:StartTouch( ent )
 	if ( ent:GetClass() == "gms_resourcedrop" ) then
