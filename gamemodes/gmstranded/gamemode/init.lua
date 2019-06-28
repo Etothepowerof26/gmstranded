@@ -132,6 +132,7 @@ function PlayerMeta:SendAchievement(text)
 
 	local sound = CreateSound(self, Sound("music/hl1_song11.mp3"))
 	sound:Play()
+	
 	timer.Simple(5.5, function() sound:Stop() end)
 end
 
@@ -175,8 +176,8 @@ function PlayerMeta:IncSkill(skill, int)
 	self.Skills[skill] = self.Skills[skill] + int
 
 	net.Start("gms_SetSkill")
-	net.WriteString(skill)
-	net.WriteInt(self:GetSkill(skill), 32)
+		net.WriteString(skill)
+		net.WriteInt(self:GetSkill(skill), 32)
 	net.Send(self)
 
 	self:CheckForUnlocks()
@@ -1812,7 +1813,7 @@ function GM:PlayerInitialSpawn(ply)
 			local name = string.sub(v, 1, string.len(v) - 4)
 
 			if (string.Right(name, 5) ~= "_info") then
-				net.Start("gms_AddLoadGameToList", ply)
+				net.Start("gms_AddLoadGameToList")
 					net.WriteString(name)
 				net.Send(ply)
 			end
@@ -1867,12 +1868,9 @@ function GM:PlayerInitialSpawn(ply)
 
 	local time = 2
 
-	local rp = RecipientFilter()
-	rp:AddPlayer(ply)
-
 	for id, t in pairs(GAMEMODE.Tribes) do
 		timer.Simple(time, function()
-			net.Start("sendTribe", rp)
+			net.Start("sendTribe")
 				net.WriteInt(id, 32)
 				net.WriteString(t.name)
 				net.WriteVector(Vector(t.color.r, t.color.g, t.color.b))
@@ -1881,19 +1879,18 @@ function GM:PlayerInitialSpawn(ply)
 				else
 					net.WriteBool(true)
 				end
-			net.Send(rp)
-
+			net.Broadcast()
 		end)
 		time = time + 0.1
 	end
 
 	for _, v in ipairs(ents.FindByClass("gms_resourcedrop")) do
 		timer.Simple(time, function()
-			net.Start("gms_SetResourceDropInfo", rp)
-			net.WriteString(v:EntIndex())
-			net.WriteString(string.gsub(v.Type or "Error!", "_", " "))
-			net.WriteInt(v.Amount, 32)
-			net.Send(rp)
+			net.Start("gms_SetResourceDropInfo")
+				net.WriteString(v:EntIndex())
+				net.WriteString(string.gsub(v.Type or "Error!", "_", " "))
+				net.WriteInt(v.Amount, 32)
+			net.Broadcast()
 		end)
 		time = time + 0.1
 	end
@@ -1901,11 +1898,11 @@ function GM:PlayerInitialSpawn(ply)
 	for _, v in ipairs(table.Add(ents.FindByClass("gms_resourcepack"), ents.FindByClass("gms_fridge"))) do
 		for res, num in pairs(v.Resources) do
 			timer.Simple(time, function()
-				net.Start("gms_SetResPackInfo", rp)
-				net.WriteString(v:EntIndex())
-				net.WriteString(string.gsub(res, "_", " "))
-				net.WriteInt(num, 32)
-				net.Send(rp)
+				net.Start("gms_SetResPackInfo")
+					net.WriteString(v:EntIndex())
+					net.WriteString(string.gsub(res, "_", " "))
+					net.WriteInt(num, 32)
+				net.Broadcast()
 			end)
 			time = time + 0.1
 		end
@@ -2133,8 +2130,8 @@ function PlayerMeta:ResetCharacter()
 
 	self:SaveCharacter()
 
-	net.Start("gms_ResetPlayer", ply)
-	net.Send(ply)
+	net.Start("gms_ResetPlayer")
+	net.Send(self)
 
 end
 
@@ -2549,7 +2546,7 @@ function GM:DeleteSavegame(name)
 
 	for k, ply in pairs(player.GetAll()) do
 		if(ply:IsAdmin()) then
-			net.Start("gms_RemoveLoadGameFromList", ply)
+			net.Start("gms_RemoveLoadGameFromList")
 				net.WriteString(name)
 			net.Send(ply)
 		end
@@ -2626,8 +2623,8 @@ function GM:SaveMap(name)
 		ply:StopSavingBar()
 
 		if (ply:IsAdmin()) then
-			net.Start("gms_AddLoadGameToList", ply)
-			net.WriteString(name)
+			net.Start("gms_AddLoadGameToList")
+				net.WriteString(name)
 			net.Send(ply)
 		end
 	end
@@ -2831,10 +2828,7 @@ function CreateTribe(ply, name, red, green, blue, password)
 		password = password or false
 	})
 
-	local rp = RecipientFilter()
-	rp:AddAllPlayers()
-
-	net.Start("sendTribe", rp)
+	net.Start("sendTribe")
 		net.WriteInt(id, 32)
 		net.WriteString(name)
 		net.WriteVector(Vector(red, green, blue))
@@ -2843,7 +2837,7 @@ function CreateTribe(ply, name, red, green, blue, password)
 		else
 			net.WriteBool(true)
 		end
-	net.Send(rp)
+	net.Broadcast()
 
 	team.SetUp(id, name, Color(red, green, blue))
 	ply:SetTeam(id)
