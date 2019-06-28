@@ -1,6 +1,8 @@
 GMS.Combinations = {}
 function GMS.RegisterCombi(tbl, group)
 	if (!GMS.Combinations[group]) then GMS.Combinations[group] = {} end
+	
+	print("[stranded] Registerring combination", tbl.Name or "wat", "in group", group)
 	GMS.Combinations[group][string.Replace(tbl.Name, " ", "_")] = tbl
 end
 
