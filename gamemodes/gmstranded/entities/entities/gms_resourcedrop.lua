@@ -20,7 +20,7 @@ function ENT:StartTouch( ent )
 	if ( ent:GetClass() == "gms_resourcedrop" && ent.Type == self.Type ) then
 		big_gms_combineresource( self, ent )
 	end
-	if ( ent:GetClass() == "gms_buildsite" && ( ent.Costs[ self.Type ] != nil && ent.Costs[ self.Type ] > 0 ) ) then 
+	if ( ent:GetClass() == "gms_buildsite" && ( ent.Costs[self.Type] != nil && ent.Costs[self.Type] > 0 ) ) then 
 		gms_addbuildsiteresource( self, ent )
 	end
 end

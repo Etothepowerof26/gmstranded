@@ -2,7 +2,7 @@ GMS.Combinations = {}
 function GMS.RegisterCombi(tbl, group)
 	if (!GMS.Combinations[group]) then GMS.Combinations[group] = {} end
 	
-	print("[stranded] Registerring combination", tbl.Name or "wat", "in group", group)
+	-- print("[stranded] Registerring combination", tbl.Name or "wat", "in group", group)
 	GMS.Combinations[group][string.Replace(tbl.Name, " ", "_")] = tbl
 end
 
@@ -164,5 +164,9 @@ GMS.RegisterCombi(COMBI, "Combinations")
 
 local files, dirs = file.Find("gmstranded/gamemode/combinations/*.lua", "LUA")
 for k,v in pairs(files) do
+	if SERVER then
+		AddCSLuaFile("gmstranded/gamemode/combinations/" .. v)
+	end
+	
 	include("gmstranded/gamemode/combinations/" .. v)
 end
